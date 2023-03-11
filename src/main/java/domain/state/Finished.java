@@ -10,12 +10,12 @@ public abstract class Finished extends State {
     }
 
     @Override
-    public State draw(final Card card) {
+    public final State draw(final Card card) {
         throw new IllegalStateException("카드를 추가로 받을 수 없습니다.");
     }
 
     @Override
-    public State stay() {
+    public final State stay() {
         throw new IllegalStateException("게임이 끝났습니다.");
     }
 

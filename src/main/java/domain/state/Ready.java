@@ -3,12 +3,10 @@ package domain.state;
 import domain.card.Card;
 import domain.game.Hand;
 
-import java.util.Collections;
-
 public final class Ready extends State {
 
-    protected Ready() {
-        super(Hand.create(Collections.emptyList()));
+    Ready() {
+        super(Hand.create());
     }
 
     @Override

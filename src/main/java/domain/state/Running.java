@@ -1,8 +1,6 @@
 package domain.state;
 
-import domain.card.Card;
 import domain.game.Hand;
-
 
 public abstract class Running extends State {
 
@@ -11,12 +9,8 @@ public abstract class Running extends State {
     }
 
     @Override
-    public State stay() {
+    public final State stay() {
         return new Stay(hand);
-    }
-
-    protected Hand add(final Card card) {
-        return hand.add(card);
     }
 
 }

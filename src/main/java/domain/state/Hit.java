@@ -5,11 +5,11 @@ import domain.game.Hand;
 
 public final class Hit extends Running {
 
-    protected Hit(final Card card) {
+    Hit(final Card card) {
         super(Hand.create(card));
     }
 
-    protected Hit(final Hand hand) {
+    Hit(final Hand hand) {
         super(hand);
     }
 
