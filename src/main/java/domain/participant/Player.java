@@ -38,12 +38,12 @@ public final class Player extends Participant {
 
     public void takeInitialCards(final DeckStrategy deck, final int count) {
         for (int i = 0; i < count; i++) {
-            state = state.draw(deck.drawCard());
+            this.state = state.draw(deck.drawCard());
         }
     }
 
     public void takeCard(final Card card) {
-        state = state.draw(card);
+        this.state = state.draw(card);
     }
 
     private static void validateName(final Name name) {
