@@ -4,7 +4,6 @@ import domain.card.Card;
 import domain.deck.DeckStrategy;
 import domain.game.Bet;
 import domain.game.GamePoint;
-import domain.state.State;
 
 import java.util.List;
 
@@ -25,10 +24,6 @@ public final class Player extends Participant {
     public static Player of(final Name name, final int bet) {
         validateName(name);
         return new Player(name, bet);
-    }
-
-    public static Player of(final Player player) {
-        return new Player(player.getName(), player.getCards(), player.getBet());
     }
 
     public static Player create(final Name name, final List<Card> cards, final int bet) {
