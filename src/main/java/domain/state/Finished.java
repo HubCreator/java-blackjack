@@ -19,4 +19,11 @@ public abstract class Finished extends State {
         throw new IllegalStateException("게임이 끝났습니다.");
     }
 
+    @Override
+    public double calculateProfit(final double bet) {
+        return bet * getProfitRate();
+    }
+
+    protected abstract double getProfitRate();
+
 }

@@ -17,6 +17,8 @@ public abstract class State {
 
     public abstract State stay();
 
+    public abstract double calculateProfit(double bet);
+
     public final List<Card> cards() {
         return hand.getCards();
     }

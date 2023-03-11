@@ -6,4 +6,9 @@ public final class Bust extends Finished {
     public Bust(final Hand hand) {
         super(hand);
     }
+
+    @Override
+    protected double getProfitRate() {
+        return -1;
+    }
 }
