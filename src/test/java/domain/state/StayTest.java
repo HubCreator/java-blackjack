@@ -9,33 +9,35 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class BustTest {
+class StayTest {
 
-    private State state;
+    State state;
 
     @BeforeEach
     void init() {
         state = new Ready()
-                .draw(Card.of(CardShape.CLOVER, CardNumber.of(10)))
-                .draw(Card.of(CardShape.HEART, CardNumber.of(10)))
-                .draw(Card.of(CardShape.DIAMOND, CardNumber.of(10)));
-    }
-    @Test
-    void bustTest() {
-        assertThat(state).isInstanceOf(Bust.class);
+                .draw(Card.of(CardShape.HEART, CardNumber.of(1)))
+                .draw(Card.of(CardShape.HEART, CardNumber.of(2)));
+        state = state.stay();
     }
 
     @Test
-    void bustStayTest() {
+    void stayTest() {
+        assertThat(state).isInstanceOf(Stay.class);
+    }
+
+    @Test
+    void stayStayTest() {
         assertThatThrownBy(() -> state.stay())
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("게임이 끝났습니다.");
     }
 
     @Test
-    void bustDrawTest() {
+    void stayDrawTest() {
         assertThatThrownBy(() -> state.draw(Card.of(CardShape.CLOVER, CardNumber.of(5))))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("카드를 추가로 받을 수 없습니다.");
     }
+
 }

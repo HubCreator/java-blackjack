@@ -3,7 +3,6 @@ package domain.state;
 import domain.card.Card;
 import domain.card.CardNumber;
 import domain.card.CardShape;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
