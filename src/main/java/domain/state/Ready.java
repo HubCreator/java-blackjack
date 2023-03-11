@@ -12,9 +12,6 @@ public final class Ready extends State {
     @Override
     public State draw(final Card card) {
         final Hand newHand = hand.add(card);
-        if (newHand.isBlackJack()) {
-            return new Blackjack(newHand);
-        }
         return new Hit(newHand);
     }
 

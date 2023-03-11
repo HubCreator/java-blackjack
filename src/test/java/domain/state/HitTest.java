@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HitTest {
 
@@ -24,6 +24,16 @@ class HitTest {
     void hitDrawTest() {
         final State newState = state.draw(Card.of(CardShape.HEART, CardNumber.of(10)));
         assertThat(newState).isInstanceOf(Hit.class);
+    }
+
+    @Test
+    void hitAndCardsTest() {
+        final State newState = state.draw(Card.of(CardShape.HEART, CardNumber.of(10)));
+        assertThat(newState.cards()).containsExactly(
+                Card.of(CardShape.HEART, CardNumber.of(1)),
+                Card.of(CardShape.HEART, CardNumber.of(2)),
+                Card.of(CardShape.HEART, CardNumber.of(10))
+        );
     }
 
     @Test
