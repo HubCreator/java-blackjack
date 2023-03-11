@@ -4,7 +4,9 @@ import domain.card.Card;
 import domain.deck.DeckStrategy;
 import domain.game.Bet;
 import domain.game.GamePoint;
-import domain.game.Hand;
+import domain.state.State;
+
+import java.util.List;
 
 public final class Player extends Participant {
 
@@ -15,8 +17,8 @@ public final class Player extends Participant {
         this.bet = Bet.of(bet);
     }
 
-    private Player(final Name name, final Hand hand, final int bet) {
-        super(name, hand);
+    private Player(final Name name, final List<Card> cards, final int bet) {
+        super(name, cards);
         this.bet = Bet.of(bet);
     }
 
@@ -29,19 +31,19 @@ public final class Player extends Participant {
         return new Player(player.getName(), player.getCards(), player.getBet());
     }
 
-    public static Player create(final Name name, final Hand hand, final int bet) {
+    public static Player create(final Name name, final List<Card> cards, final int bet) {
         validateName(name);
-        return new Player(name, hand, bet);
+        return new Player(name, cards, bet);
     }
 
     public void takeInitialCards(final DeckStrategy deck, final int count) {
         for (int i = 0; i < count; i++) {
-            this.hand = hand.add(deck.drawCard());
+            state = state.draw(deck.drawCard());
         }
     }
 
     public void takeCard(final Card card) {
-        this.hand = hand.add(card);
+        state = state.draw(card);
     }
 
     private static void validateName(final Name name) {

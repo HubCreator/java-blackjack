@@ -1,6 +1,7 @@
 package domain.state;
 
 import domain.card.Card;
+import domain.game.GamePoint;
 import domain.game.Hand;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public abstract class State {
         return hand.getCards();
     }
 
+    public GamePoint getGamePoint() {
+        return hand.getGamePoint();
+    }
 }

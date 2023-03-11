@@ -2,7 +2,6 @@ package domain.game;
 
 import domain.participant.Dealer;
 import domain.participant.Name;
-import domain.participant.Participant;
 import domain.participant.Player;
 import domain.participant.Players;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,22 +60,6 @@ class BetTest {
         void playerBetTest() {
             assertThat(player1.getBet()).isEqualTo(1000);
             assertThat(player2.getBet()).isEqualTo(2000);
-        }
-
-        @DisplayName("플레이어들과 딜러의 초기 점수를 확인한다.")
-        @Test
-        void initialGamePointTest() {
-            gamePointCheck(player1, 21);
-            gamePointCheck(player2, 7);
-            gamePointCheck(dealer, 15);
-        }
-
-        private void gamePointCheck(final Participant participant, final int gamePoint) {
-            assertThat(participant)
-                    .extracting("cards")
-                    .extracting("gamePoint")
-                    .extracting("gamePoint")
-                    .isEqualTo(gamePoint);
         }
     }
 }

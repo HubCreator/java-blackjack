@@ -5,10 +5,6 @@ import domain.game.Hand;
 
 public final class Hit extends Running {
 
-    Hit(final Card card) {
-        super(Hand.create(card));
-    }
-
     Hit(final Hand hand) {
         super(hand);
     }

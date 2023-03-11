@@ -1,44 +1,57 @@
 package domain.participant;
 
+import domain.card.Card;
 import domain.game.GamePoint;
-import domain.game.Hand;
+import domain.state.Blackjack;
+import domain.state.Bust;
+import domain.state.Finished;
+import domain.state.Ready;
+import domain.state.State;
 
-import java.util.Collections;
+import java.util.List;
 
 public abstract class Participant {
 
     protected static final String DEALER_NAME = "딜러";
 
     private final Name name;
-    protected Hand hand;
+    protected State state;
 
     protected Participant(final Name name) {
         this.name = name;
-        this.hand = Hand.create();
+        this.state = new Ready();
     }
 
-    protected Participant(final Name name, final Hand hand) {
+    protected Participant(final Name name, final List<Card> cards) {
         this.name = name;
-        this.hand = hand;
+        this.state = new Ready(cards);
     }
 
     public GamePoint calculatePoint() {
-        return hand.getGamePoint();
+        return state.getGamePoint();
     }
 
     public boolean isBusted() {
-        return hand.isBusted();
+        return state instanceof Bust;
     }
 
     public boolean isBlackJack() {
-        return hand.isBlackJack();
+        return state instanceof Blackjack;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Hand getCards() {
-        return hand;
+    public List<Card> getCards() {
+        return state.cards();
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public boolean isNotFinished() {
+        return !(state instanceof Finished);
     }
 }

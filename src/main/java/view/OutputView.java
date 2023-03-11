@@ -62,8 +62,8 @@ public final class OutputView {
         return makeCardString(hand);
     }
 
-    private String getCardStringOf(final Hand hand) {
-        return hand.getCards().stream()
+    private String getCardStringOf(final List<Card> cards) {
+        return cards.stream()
                 .map(this::makeCardString)
                 .collect(Collectors.joining(DELIMITER));
     }

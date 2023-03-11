@@ -16,15 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class HandTest {
 
-    private Card[] cards;
+    private List<Card> cards;
 
     @BeforeEach
     void init() {
-        cards = new Card[]{
+        cards = List.of(
                 Card.of(CardShape.CLOVER, CardNumber.of(1)),
                 Card.of(CardShape.DIAMOND, CardNumber.of(2)),
                 Card.of(CardShape.HEART, CardNumber.of(3))
-        };
+        );
     }
 
     @Test
@@ -67,9 +67,9 @@ public class HandTest {
     @DisplayName("cards의 bust 상태 테스트")
     void bustTest() {
         final Hand hand = Hand.create(
-                Card.of(CardShape.HEART, CardNumber.of(10)),
-                Card.of(CardShape.HEART, CardNumber.of(10)),
-                Card.of(CardShape.HEART, CardNumber.of(10))
+                List.of(Card.of(CardShape.HEART, CardNumber.of(10)),
+                        Card.of(CardShape.HEART, CardNumber.of(10)),
+                        Card.of(CardShape.HEART, CardNumber.of(10)))
         );
         assertThat(hand.isBusted()).isTrue();
     }

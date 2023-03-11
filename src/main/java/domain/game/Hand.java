@@ -3,7 +3,6 @@ package domain.game;
 import domain.card.Card;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,14 +19,14 @@ public final class Hand {
         this.gamePoint = GamePoint.create(cards);
     }
 
-    public static Hand create(final Card... cards) {
-        return new Hand(Arrays.stream(cards).collect(Collectors.toList()));
+    public static Hand create(final List<Card> cards) {
+        return new Hand(cards);
     }
 
     public Hand add(final Card card) {
-        List<Card> cardList = new ArrayList<>(cards);
-        cardList.add(card);
-        return new Hand(cardList);
+        final ArrayList<Card> result = new ArrayList<>(cards);
+        result.add(card);
+        return Hand.create(result);
     }
 
     public boolean isBlackJack() {

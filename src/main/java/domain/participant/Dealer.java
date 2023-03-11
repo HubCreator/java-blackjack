@@ -4,6 +4,8 @@ import domain.card.Card;
 import domain.deck.DeckStrategy;
 import domain.game.GamePoint;
 
+import java.util.List;
+
 public final class Dealer extends Participant {
 
     public static final GamePoint STANDARD_OF_NEED_MORE_CARD = GamePoint.of(16);
@@ -18,12 +20,12 @@ public final class Dealer extends Participant {
 
     public void takeInitialCards(final DeckStrategy deck, final int count) {
         for (int i = 0; i < count; i++) {
-            this.hand = hand.add(deck.drawCard());
+            this.state = state.draw(deck.drawCard());
         }
     }
 
     public void takeCard(final Card card) {
-        this.hand = hand.add(card);
+        this.state = state.draw(card);
     }
 
     public boolean needMoreCard() {
@@ -31,6 +33,7 @@ public final class Dealer extends Participant {
     }
 
     public Card getFirstCard() {
-        return hand.getFirstCard();
+        final List<Card> cards = state.cards();
+        return cards.get(0);
     }
 }

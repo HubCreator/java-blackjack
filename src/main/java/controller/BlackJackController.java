@@ -5,6 +5,7 @@ import domain.deck.ShuffledDeck;
 import domain.participant.Player;
 import domain.participant.Players;
 import domain.participant.Name;
+import domain.state.Finished;
 import view.InputView;
 import view.OutputView;
 
@@ -50,13 +51,13 @@ public final class BlackJackController {
 
     private void getPlayersDecision(final BlackJack blackJack) {
         final Players participants = blackJack.getPlayers();
-        for (Player participant : participants.getPlayers()) {
-            getPlayerDecision(blackJack, participant);
+        for (Player player : participants.getPlayers()) {
+            getPlayerDecision(blackJack, player);
         }
     }
 
     private void getPlayerDecision(final BlackJack blackJack, final Player player) {
-        while (!blackJack.isBusted(player) && !player.isBlackJack() && wantMoreCard(player)) {
+        while (player.isNotFinished() && wantMoreCard(player)) {
             blackJack.giveCard(player);
             outputView.printPlayerCards(player);
         }

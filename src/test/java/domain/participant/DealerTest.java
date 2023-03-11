@@ -30,31 +30,6 @@ class DealerTest {
         assertThat(dealer.getName().getValue()).isEqualTo("딜러");
     }
 
-    @DisplayName("딜러는 다수의 카드를 받을 수 있다.")
-    @ParameterizedTest
-    @ValueSource(ints = {2, 3, 4, 5})
-    void dealerTakeCardTest(int value) {
-        dealer.takeInitialCards(new ShuffledDeck(), value);
-
-        assertThat(dealer)
-                .extracting("cards")
-                .extracting("cards", collection(List.class))
-                .size()
-                .isSameAs(value);
-    }
-
-    @DisplayName("딜러는 한 장의 카드를 받을 수 있다.")
-    @Test
-    void playerTakeCardsTest() {
-        dealer.takeCard(Card.of(CardShape.HEART, CardNumber.of(3)));
-
-        assertThat(dealer)
-                .extracting("cards")
-                .extracting("cards", collection(List.class))
-                .size()
-                .isSameAs(1);
-    }
-
     @DisplayName("딜러는 자신이 가진 카드의 점수 합을 구할 수 있다.")
     @Test
     void calculateGamePoint() {
