@@ -14,7 +14,7 @@ public abstract class Participant {
 
     protected Participant(final Name name) {
         this.name = name;
-        this.hand = Hand.create(Collections.emptyList());
+        this.hand = Hand.create();
     }
 
     protected Participant(final Name name, final Hand hand) {

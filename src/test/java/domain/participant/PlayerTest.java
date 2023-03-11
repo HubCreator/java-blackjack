@@ -19,15 +19,15 @@ import static org.assertj.core.api.InstanceOfAssertFactories.collection;
 
 class PlayerTest {
 
-    private List<Card> initialData;
+    private Card[] initialData;
     private Player player;
 
     @BeforeEach
     void init() {
-        initialData = List.of(
+        initialData = new Card[]{
                 Card.of(CardShape.HEART, CardNumber.of(1)),
                 Card.of(CardShape.HEART, CardNumber.of(2))
-        );
+        };
         player = Player.create(Name.of("HK"), Hand.create(initialData), 10_000);
     }
 
@@ -61,7 +61,7 @@ class PlayerTest {
                 .extracting("cards")
                 .extracting("cards", collection(List.class))
                 .size()
-                .isSameAs(value + initialData.size());
+                .isSameAs(value + initialData.length);
     }
 
     @DisplayName("플레이어는 자신이 가진 카드의 점수 합을 구할 수 있다.")

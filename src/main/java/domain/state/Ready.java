@@ -12,12 +12,15 @@ public final class Ready extends State {
     @Override
     public State draw(final Card card) {
         final Hand newHand = hand.add(card);
+        if (newHand.isBlackJack()) {
+            return new Blackjack(newHand);
+        }
         return new Hit(newHand);
     }
 
     @Override
     public State stay() {
-        throw  new IllegalStateException("게임을 멈출 수 없습니다.");
+        throw new IllegalStateException("게임을 멈출 수 없습니다.");
     }
 
 }
