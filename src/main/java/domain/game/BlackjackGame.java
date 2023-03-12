@@ -3,7 +3,6 @@ package domain.game;
 import domain.deck.DeckStrategy;
 import domain.participant.Dealer;
 import domain.participant.Name;
-import domain.participant.Participant;
 import domain.participant.Player;
 import domain.participant.Players;
 import domain.result.FinalResult;
@@ -27,7 +26,7 @@ public final class BlackjackGame {
 
     private void initGame(final DeckStrategy deck, final int count) {
         dealer.takeInitialCards(deck, count);
-        players.takeCard(deck, count);
+        players.takeCards(deck, count);
     }
 
     public static BlackjackGame getInstance(final List<Name> playerNames,

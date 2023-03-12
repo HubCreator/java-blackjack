@@ -17,13 +17,13 @@ public final class Stay extends Finished {
             return -1;
         }
         if (dealerState.isStay()) {
-            if (this.getGamePoint().isGreaterThan(dealerState.getGamePoint())) {
+            if (getGamePoint().isGreaterThan(dealerState.getGamePoint())) {
                 return 1;
             }
-            if (this.getGamePoint().isSameAs(dealerState.getGamePoint())) {
+            if (getGamePoint().isSameAs(dealerState.getGamePoint())) {
                 return 0;
             }
-            if (this.getGamePoint().isLowerThan(dealerState.getGamePoint())) {
+            if (getGamePoint().isLowerThan(dealerState.getGamePoint())) {
                 return -1;
             }
         }

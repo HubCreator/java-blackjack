@@ -1,7 +1,6 @@
 package domain.participant;
 
 import domain.deck.DeckStrategy;
-import domain.game.GamePoint;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,28 +41,10 @@ public final class Players {
         }
     }
 
-    public void takeCard(final DeckStrategy deck, final int count) {
+    public void takeCards(final DeckStrategy deck, final int count) {
         for (Player player : players) {
             player.takeInitialCards(deck, count);
         }
-    }
-
-    public List<Player> findPlayerGreaterThan(final GamePoint gamePoint) {
-        return players.stream()
-                .filter(player -> player.hasGreaterThan(gamePoint))
-                .collect(Collectors.toUnmodifiableList());
-    }
-
-    public List<Player> findPlayerSameAs(final GamePoint gamePoint) {
-        return players.stream()
-                .filter(player -> player.hasSameAs(gamePoint))
-                .collect(Collectors.toUnmodifiableList());
-    }
-
-    public List<Player> findPlayersLowerThan(final GamePoint gamePoint) {
-        return players.stream()
-                .filter(player -> player.hasLowerThan(gamePoint))
-                .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Player> getPlayers() {

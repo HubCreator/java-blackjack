@@ -52,11 +52,4 @@ public final class Hand {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public Card getFirstCard() {
-        return cards.get(0);
-    }
-
-    public boolean isSameCount(final int count) {
-        return this.cards.size() == count;
-    }
 }

@@ -1,14 +1,11 @@
 package domain.participant;
 
 import domain.card.Card;
-import domain.deck.DeckStrategy;
 import domain.game.GamePoint;
 
 import java.util.List;
 
 public final class Dealer extends Participant {
-
-    public static final GamePoint STANDARD_OF_NEED_MORE_CARD = GamePoint.of(16);
 
     private Dealer(final Name name) {
         super(name);

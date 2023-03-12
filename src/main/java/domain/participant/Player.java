@@ -1,7 +1,6 @@
 package domain.participant;
 
 import domain.card.Card;
-import domain.deck.DeckStrategy;
 import domain.game.Bet;
 import domain.game.GamePoint;
 
