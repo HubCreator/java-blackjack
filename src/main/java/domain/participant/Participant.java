@@ -1,6 +1,7 @@
 package domain.participant;
 
 import domain.card.Card;
+import domain.deck.DeckStrategy;
 import domain.game.GamePoint;
 import domain.state.Finished;
 import domain.state.Ready;
@@ -23,6 +24,16 @@ public abstract class Participant {
     protected Participant(final Name name, final List<Card> cards) {
         this.name = name;
         this.state = new Ready(cards);
+    }
+
+    public void takeInitialCards(final DeckStrategy deck, final int count) {
+        for (int i = 0; i < count; i++) {
+            this.state = state.draw(deck.drawCard());
+        }
+    }
+
+    public void takeCard(final Card card) {
+        this.state = state.draw(card);
     }
 
     public boolean isNotFinished() {

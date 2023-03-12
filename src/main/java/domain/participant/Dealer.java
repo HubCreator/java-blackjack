@@ -18,16 +18,6 @@ public final class Dealer extends Participant {
         return new Dealer(Name.of(DEALER_NAME));
     }
 
-    public void takeInitialCards(final DeckStrategy deck, final int count) {
-        for (int i = 0; i < count; i++) {
-            this.state = state.draw(deck.drawCard());
-        }
-    }
-
-    public void takeCard(final Card card) {
-        this.state = state.draw(card);
-    }
-
     public Card getFirstCard() {
         final List<Card> cards = state.cards();
         return cards.get(0);

@@ -31,16 +31,6 @@ public final class Player extends Participant {
         return new Player(name, cards, bet);
     }
 
-    public void takeInitialCards(final DeckStrategy deck, final int count) {
-        for (int i = 0; i < count; i++) {
-            this.state = state.draw(deck.drawCard());
-        }
-    }
-
-    public void takeCard(final Card card) {
-        this.state = state.draw(card);
-    }
-
     private static void validateName(final Name name) {
         if (name.getValue().equals(DEALER_NAME)) {
             throw new IllegalArgumentException(
