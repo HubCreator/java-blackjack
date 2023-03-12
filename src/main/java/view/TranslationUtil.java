@@ -1,6 +1,5 @@
 package view;
 
-import domain.result.GameResult;
 import domain.card.CardShape;
 
 public final class TranslationUtil {
@@ -48,7 +47,7 @@ public final class TranslationUtil {
         return String.valueOf(point);
     }
 
-    public static String translateResult(final GameResult gameResult) {
+    /*public static String translateResult(final GameResult gameResult) {
         if (gameResult == GameResult.WIN) {
             return "승";
         }
@@ -59,5 +58,5 @@ public final class TranslationUtil {
             return "패";
         }
         throw new AssertionError();
-    }
+    }*/
 }

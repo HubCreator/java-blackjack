@@ -1,10 +1,8 @@
 package view;
 
 import domain.game.GamePoint;
-import domain.result.ParticipantsFinalResult;
-import domain.result.GameResult;
+import domain.result.FinalResult;
 import domain.card.Card;
-import domain.game.Hand;
 import domain.participant.Dealer;
 import domain.participant.Participant;
 import domain.participant.Player;
@@ -24,7 +22,7 @@ public final class OutputView {
     public void printInitialStatus(final Dealer dealer, final Players players) {
         System.out.print(System.lineSeparator());
         System.out.printf("%s와 %s에게 2장을 나누었습니다.%n",
-                dealer.getName().getValue(),
+                dealer.getName(),
                 getPlayerNames(players));
         printDealerAndPlayersStatus(dealer, players);
     }
@@ -32,7 +30,7 @@ public final class OutputView {
     private String getPlayerNames(final Players players) {
         return players.getPlayers()
                 .stream()
-                .map(user -> user.getName().getValue())
+                .map(Participant::getName)
                 .collect(Collectors.joining(DELIMITER));
     }
 
@@ -47,14 +45,14 @@ public final class OutputView {
     private String getInitialDealerStatus(final Dealer dealer) {
         return String.format(
                 DEFAULT_FORMAT,
-                dealer.getName().getValue(),
+                dealer.getName(),
                 getCardStringOf(dealer.getFirstCard()));
     }
 
     private String getParticipantStatus(final Participant participant) {
         return String.format(
                 DEFAULT_FORMAT,
-                participant.getName().getValue(),
+                participant.getName(),
                 getCardStringOf(participant.getCards()));
     }
 
@@ -77,7 +75,7 @@ public final class OutputView {
     public void printPlayerCards(final Player player) {
         System.out.printf(
                 DEFAULT_FORMAT,
-                player.getName().getValue(),
+                player.getName(),
                 getCardStringOf(player.getCards())
         );
         System.out.print(System.lineSeparator());
@@ -102,7 +100,7 @@ public final class OutputView {
     private void printParticipantResult(final Participant participant) {
         System.out.printf("%s - 결과: %s\n",
                 getParticipantStatus(participant),
-                getGamePoint(participant.calculatePoint()));
+                getGamePoint(participant.getGamePoint()));
     }
 
     private String getGamePoint(final GamePoint gamePoint) {
@@ -110,30 +108,23 @@ public final class OutputView {
         return TranslationUtil.translatePoint(point);
     }
 
-    public void printFinalResult(final Dealer dealer, ParticipantsFinalResult participantsFinalResult) {
+    public void printFinalResult(final Dealer dealer, final FinalResult finalResult) {
         System.out.println("\n## 최종 수익");
-        printDealerResult(dealer, participantsFinalResult);
-        printPlayersResult(participantsFinalResult.getResult());
+        printDealerResult(dealer, finalResult);
+        printPlayersResult(finalResult.getPlayersResult());
     }
 
-    private void printDealerResult(final Dealer dealer, final ParticipantsFinalResult participantsFinalResult) {
-        System.out.printf(FINAL_RESULT_FORMAT, dealer.getName().getValue(), participantsFinalResult.getDealerProfit());
+    private void printDealerResult(final Dealer dealer, final FinalResult finalResult) {
+        System.out.printf(FINAL_RESULT_FORMAT, dealer.getName(), finalResult.getDealerProfit());
     }
 
-    private void printPlayersResult(final Map<GameResult, List<Player>> gameResult) {
-        for (Map.Entry<GameResult, List<Player>> entry : gameResult.entrySet()) {
-            printPlayerResult(entry);
-        }
-    }
-
-    private void printPlayerResult(final Map.Entry<GameResult, List<Player>> entry) {
-        final List<Player> players = entry.getValue();
-        for (Player player : players) {
+    private void printPlayersResult(final Map<Player, Double> gameResult) {
+        for (Map.Entry<Player, Double> entry : gameResult.entrySet()) {
             System.out.printf(
                     FINAL_RESULT_FORMAT,
-                    player.getName().getValue(),
-                    entry.getKey().calculateProfit(player)
-            );
+                    entry.getKey().getName(),
+                    entry.getValue(
+                    ));
         }
     }
 }

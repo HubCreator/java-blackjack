@@ -42,6 +42,10 @@ public final class Hand {
         return gamePoint;
     }
 
+    public boolean isStay() {
+        return !isBusted() && !isBlackJack();
+    }
+
     public List<Card> getCards() {
         return cards.stream()
                 .map(Card::of)

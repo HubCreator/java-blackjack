@@ -2,8 +2,6 @@ package domain.participant;
 
 import domain.card.Card;
 import domain.game.GamePoint;
-import domain.state.Blackjack;
-import domain.state.Bust;
 import domain.state.Finished;
 import domain.state.Ready;
 import domain.state.State;
@@ -27,28 +25,28 @@ public abstract class Participant {
         this.state = new Ready(cards);
     }
 
-    public GamePoint calculatePoint() {
+    public GamePoint getGamePoint() {
         return state.getGamePoint();
     }
 
-    public boolean isBusted() {
-        return state instanceof Bust;
+    public boolean isBust() {
+        return state.isBust();
     }
 
-    public boolean isBlackJack() {
-        return state instanceof Blackjack;
+    public boolean isBlackjack() {
+        return state.isBlackjack();
     }
 
-    public Name getName() {
-        return name;
+    public void stay() {
+        this.state = state.stay();
+    }
+
+    public String getName() {
+        return name.getValue();
     }
 
     public List<Card> getCards() {
         return state.cards();
-    }
-
-    public State getState() {
-        return state;
     }
 
     public boolean isNotFinished() {

@@ -2,6 +2,7 @@ package domain.state;
 
 import domain.card.Card;
 import domain.game.Hand;
+import domain.participant.Dealer;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public final class Ready extends State {
     }
 
     @Override
-    public double calculateProfit(final double bet) {
+    public double calculateProfit(final double bet, final State dealerState) {
         throw new UnsupportedOperationException();
     }
 

@@ -1,19 +1,13 @@
 package domain.participant;
 
-import domain.deck.ShuffledDeck;
 import domain.card.Card;
 import domain.card.CardNumber;
 import domain.card.CardShape;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.collection;
 
 class DealerTest {
 
@@ -36,7 +30,7 @@ class DealerTest {
         for (int i = 0; i < 12; i++) {
             dealer.takeCard(Card.of(CardShape.HEART, CardNumber.of(1)));
         }
-        assertThat(dealer.calculatePoint())
+        assertThat(dealer.getGamePoint())
                 .extracting("gamePoint")
                 .isSameAs(12);
     }

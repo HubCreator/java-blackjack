@@ -6,11 +6,11 @@ import domain.participant.Name;
 import domain.participant.Participant;
 import domain.participant.Player;
 import domain.participant.Players;
-import domain.result.ParticipantsFinalResult;
+import domain.result.FinalResult;
 
 import java.util.List;
 
-public final class BlackJack {
+public final class BlackjackGame {
 
     public static final int INITIAL_DRAW_CARD_COUNT = 2;
 
@@ -18,7 +18,7 @@ public final class BlackJack {
     private final Players players;
     private final DeckStrategy deck;
 
-    private BlackJack(final List<Name> playerNames, final List<Integer> bets, final DeckStrategy deck) {
+    private BlackjackGame(final List<Name> playerNames, final List<Integer> bets, final DeckStrategy deck) {
         this.dealer = Dealer.create();
         this.players = Players.create(playerNames, bets);
         this.deck = deck;
@@ -30,14 +30,14 @@ public final class BlackJack {
         players.takeCard(deck, count);
     }
 
-    public static BlackJack getInstance(final List<Name> playerNames,
-                                        final List<Integer> bets,
-                                        final DeckStrategy deck) {
-        return new BlackJack(playerNames, bets, deck);
+    public static BlackjackGame getInstance(final List<Name> playerNames,
+                                            final List<Integer> bets,
+                                            final DeckStrategy deck) {
+        return new BlackjackGame(playerNames, bets, deck);
     }
 
     public boolean isBusted(final Participant participant) {
-        return participant.isBusted();
+        return participant.isBust();
     }
 
     public void giveCard(final Player player) {
@@ -61,7 +61,7 @@ public final class BlackJack {
         return players;
     }
 
-    public ParticipantsFinalResult getGameResult() {
-        return ParticipantsFinalResult.of(dealer, players);
+    public FinalResult getGameResult() {
+        return FinalResult.of(dealer, players);
     }
 }

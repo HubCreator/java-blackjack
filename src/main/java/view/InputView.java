@@ -37,10 +37,10 @@ public final class InputView {
         }
     }
 
-    public boolean cardRequest(Name name) {
+    public boolean cardRequest(final String name) {
         System.out.printf(
                 "%s는 한 장의 카드를 더 받겠습니까?(예는 %s, 아니오는 %s)\n",
-                name.getValue()
+                name
                 , YES, NO
         );
         return validateInputAndGet(readLine());

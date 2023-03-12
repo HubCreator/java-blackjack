@@ -1,22 +1,16 @@
 package domain.participant;
 
-import domain.deck.ShuffledDeck;
 import domain.card.Card;
 import domain.card.CardNumber;
 import domain.card.CardShape;
-import domain.game.Hand;
-import domain.state.State;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.InstanceOfAssertFactories.collection;
 
 class PlayerTest {
 
@@ -44,7 +38,7 @@ class PlayerTest {
         for (int i = 0; i < 12; i++) {
             player.takeCard(Card.of(CardShape.HEART, CardNumber.of(1)));
         }
-        assertThat(player.calculatePoint())
+        assertThat(player.getGamePoint())
                 .extracting("gamePoint")
                 .isSameAs(15);
     }

@@ -37,7 +37,7 @@ class BetTest {
 
     @Nested
     class BetDealerPlayersTest {
-        private BlackJack blackJack;
+        private BlackjackGame blackjackGame;
         private Player player1;
         private Player player2;
         private Dealer dealer;
@@ -46,13 +46,13 @@ class BetTest {
         void init() {
             final List<Name> names = List.of(Name.of("a"), Name.of("b"));
             final List<Integer> bets = List.of(1000, 2000);
-            blackJack = BlackJack.getInstance(names, bets, new TestDeckForThreeParticipant());
+            blackjackGame = BlackjackGame.getInstance(names, bets, new TestDeckForThreeParticipant());
 
-            final Players players = blackJack.getPlayers();
+            final Players players = blackjackGame.getPlayers();
             final List<Player> playerList = players.getPlayers();
             player1 = playerList.get(0);
             player2 = playerList.get(1);
-            dealer = blackJack.getDealer();
+            dealer = blackjackGame.getDealer();
         }
 
         @DisplayName("플레이어들은 각각 배팅 금액을 가지고 있다.")

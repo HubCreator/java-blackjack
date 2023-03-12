@@ -20,4 +20,9 @@ public final class Hit extends Running {
         }
         return new Hit(newHand);
     }
+
+    @Override
+    public double calculateProfit(final double bet, final State dealerState) {
+        throw new IllegalStateException("게임 중간에 수익률을 계산할 수 없습니다.");
+    }
 }

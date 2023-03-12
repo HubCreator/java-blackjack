@@ -1,11 +1,10 @@
 package controller;
 
-import domain.game.BlackJack;
+import domain.game.BlackjackGame;
 import domain.deck.ShuffledDeck;
 import domain.participant.Player;
 import domain.participant.Players;
 import domain.participant.Name;
-import domain.state.Finished;
 import view.InputView;
 import view.OutputView;
 
@@ -24,22 +23,22 @@ public final class BlackJackController {
         this.outputView = outputView;
     }
 
-    private BlackJack createBlackJack() {
+    private BlackjackGame createBlackJack() {
         final List<Name> playerNames = repeat(this::userNameRequest);
         final List<Integer> bets = playerNames.stream()
                 .map(name -> repeat(() -> inputView.betRequest(name)))
                 .collect(Collectors.toList());
-        return BlackJack.getInstance(playerNames, bets, new ShuffledDeck());
+        return BlackjackGame.getInstance(playerNames, bets, new ShuffledDeck());
     }
 
     public void process() {
-        final BlackJack blackJack = repeat(this::createBlackJack);
+        final BlackjackGame blackjackGame = repeat(this::createBlackJack);
 
-        outputView.printInitialStatus(blackJack.getDealer(), blackJack.getPlayers());
-        getPlayersDecision(blackJack);
-        getDealerResult(blackJack);
-        outputView.printStatus(blackJack.getDealer(), blackJack.getPlayers());
-        outputView.printFinalResult(blackJack.getDealer(), blackJack.getGameResult());
+        outputView.printInitialStatus(blackjackGame.getDealer(), blackjackGame.getPlayers());
+        getPlayersDecision(blackjackGame);
+        getDealerResult(blackjackGame);
+        outputView.printStatus(blackjackGame.getDealer(), blackjackGame.getPlayers());
+        outputView.printFinalResult(blackjackGame.getDealer(), blackjackGame.getGameResult());
     }
 
     private List<Name> userNameRequest() {
@@ -49,16 +48,16 @@ public final class BlackJackController {
                 .collect(Collectors.toList());
     }
 
-    private void getPlayersDecision(final BlackJack blackJack) {
-        final Players participants = blackJack.getPlayers();
+    private void getPlayersDecision(final BlackjackGame blackjackGame) {
+        final Players participants = blackjackGame.getPlayers();
         for (Player player : participants.getPlayers()) {
-            getPlayerDecision(blackJack, player);
+            getPlayerDecision(blackjackGame, player);
         }
     }
 
-    private void getPlayerDecision(final BlackJack blackJack, final Player player) {
+    private void getPlayerDecision(final BlackjackGame blackjackGame, final Player player) {
         while (player.isNotFinished() && wantMoreCard(player)) {
-            blackJack.giveCard(player);
+            blackjackGame.giveCard(player);
             outputView.printPlayerCards(player);
         }
     }
@@ -67,8 +66,8 @@ public final class BlackJackController {
         return repeat(() -> inputView.cardRequest(player.getName()));
     }
 
-    private void getDealerResult(final BlackJack blackJack) {
-        final int cardCount = blackJack.getAdditionalCardCount();
+    private void getDealerResult(final BlackjackGame blackjackGame) {
+        final int cardCount = blackjackGame.getAdditionalCardCount();
         final boolean haveAdditionalCard = cardCount > 0;
         outputView.printAdditionalCardCount(cardCount, haveAdditionalCard);
     }

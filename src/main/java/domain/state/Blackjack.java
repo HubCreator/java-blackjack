@@ -8,7 +8,10 @@ public final class Blackjack extends Finished {
     }
 
     @Override
-    protected double getProfitRate() {
+    protected double getProfitRate(final State dealerState) {
+        if (dealerState.isBlackjack()) {
+            return 0;
+        }
         return 1.5;
     }
 }

@@ -18,7 +18,7 @@ public abstract class State {
 
     public abstract State stay();
 
-    public abstract double calculateProfit(double bet);
+    public abstract double calculateProfit(double bet, State dealerState);
 
     public final List<Card> cards() {
         return hand.getCards();
@@ -26,5 +26,17 @@ public abstract class State {
 
     public GamePoint getGamePoint() {
         return hand.getGamePoint();
+    }
+
+    public boolean isBust() {
+        return hand.isBusted();
+    }
+
+    public boolean isBlackjack() {
+        return hand.isBlackJack();
+    }
+
+    protected boolean isStay() {
+        return hand.isStay();
     }
 }

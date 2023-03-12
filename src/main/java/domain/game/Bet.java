@@ -8,18 +8,18 @@ public final class Bet {
     public static final int MAX = 100_000_000;
     public static final double BONUS_RATE = 1.5;
 
-    private final int bet;
+    private final double bet;
 
-    private Bet(final int bet) {
+    private Bet(final double bet) {
         validatePrice(bet);
         this.bet = bet;
     }
 
-    public static Bet of(final int bet) {
+    public static Bet of(final double bet) {
         return new Bet(bet);
     }
 
-    private void validatePrice(final int bet) {
+    private void validatePrice(final double bet) {
         if (bet > MAX) {
             throw new IllegalArgumentException(
                     MessageFormat.format(
@@ -30,7 +30,7 @@ public final class Bet {
         }
     }
 
-    public int getBet() {
+    public double getBet() {
         return bet;
     }
 

@@ -49,18 +49,22 @@ public final class Player extends Participant {
     }
 
     public boolean hasLowerThan(final GamePoint gamePoint) {
-        return calculatePoint().isLowerThan(gamePoint);
+        return getGamePoint().isLowerThan(gamePoint);
     }
 
     public boolean hasSameAs(final GamePoint gamePoint) {
-        return calculatePoint().isSameAs(gamePoint);
+        return getGamePoint().isSameAs(gamePoint);
     }
 
     public boolean hasGreaterThan(final GamePoint gamePoint) {
-        return calculatePoint().isGreaterThan(gamePoint);
+        return getGamePoint().isGreaterThan(gamePoint);
     }
 
-    public int getBet() {
+    public double getBet() {
         return bet.getBet();
+    }
+
+    public double calculateProfit(final Dealer dealer) {
+        return state.calculateProfit(getBet(), dealer.state);
     }
 }

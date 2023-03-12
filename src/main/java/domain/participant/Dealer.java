@@ -29,7 +29,7 @@ public final class Dealer extends Participant {
     }
 
     public boolean needMoreCard() {
-        return calculatePoint().isLowerThan(STANDARD_OF_NEED_MORE_CARD) && !this.isBusted();
+        return getGamePoint().isLowerThan(STANDARD_OF_NEED_MORE_CARD) && !this.isBust();
     }
 
     public Card getFirstCard() {

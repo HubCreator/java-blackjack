@@ -8,7 +8,7 @@ public final class Bust extends Finished {
     }
 
     @Override
-    protected double getProfitRate() {
+    protected double getProfitRate(final State dealerState) {
         return -1;
     }
 }

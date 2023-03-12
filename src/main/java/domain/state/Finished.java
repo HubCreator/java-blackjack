@@ -20,10 +20,10 @@ public abstract class Finished extends State {
     }
 
     @Override
-    public double calculateProfit(final double bet) {
-        return bet * getProfitRate();
+    public double calculateProfit(final double bet, final State dealerState) {
+        return bet * getProfitRate(dealerState);
     }
 
-    protected abstract double getProfitRate();
+    protected abstract double getProfitRate(State dealerState);
 
 }

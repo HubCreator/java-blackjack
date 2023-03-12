@@ -48,9 +48,9 @@ public final class Players {
         }
     }
 
-    public List<Player> findPlayersLowerThan(final GamePoint gamePoint) {
+    public List<Player> findPlayerGreaterThan(final GamePoint gamePoint) {
         return players.stream()
-                .filter(player -> player.hasLowerThan(gamePoint))
+                .filter(player -> player.hasGreaterThan(gamePoint))
                 .collect(Collectors.toUnmodifiableList());
     }
 
@@ -60,9 +60,9 @@ public final class Players {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public List<Player> findPlayerGreaterThan(final GamePoint gamePoint) {
+    public List<Player> findPlayersLowerThan(final GamePoint gamePoint) {
         return players.stream()
-                .filter(player -> player.hasGreaterThan(gamePoint))
+                .filter(player -> player.hasLowerThan(gamePoint))
                 .collect(Collectors.toUnmodifiableList());
     }
 
