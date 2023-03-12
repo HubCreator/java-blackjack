@@ -1,4 +1,4 @@
-import controller.BlackJackController;
+import controller.BlackjackController;
 import view.InputView;
 import view.OutputView;
 
@@ -8,7 +8,7 @@ public final class Application {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            final BlackJackController blackJackController = new BlackJackController(
+            final BlackjackController blackJackController = new BlackjackController(
                     new InputView(scanner),
                     new OutputView()
             );

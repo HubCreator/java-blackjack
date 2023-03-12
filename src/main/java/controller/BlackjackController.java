@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 
 import static template.Repeater.repeat;
 
-public final class BlackJackController {
+public final class BlackjackController {
 
     private final InputView inputView;
     private final OutputView outputView;
 
-    public BlackJackController(final InputView inputView, final OutputView outputView) {
+    public BlackjackController(final InputView inputView, final OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
     }
@@ -60,13 +60,14 @@ public final class BlackJackController {
             blackjackGame.giveCard(player);
             outputView.printPlayerCards(player);
         }
-        if (player.isNotFinished()) {
-            player.stay();
-        }
     }
 
     private boolean wantMoreCard(final Player player) {
-        return repeat(() -> inputView.cardRequest(player.getName()));
+        final boolean wantMoreCard = repeat(() -> inputView.cardRequest(player.getName()));
+        if (!wantMoreCard) {
+            player.stay();
+        }
+        return wantMoreCard;
     }
 
     private void getDealerResult(final BlackjackGame blackjackGame) {
