@@ -36,17 +36,13 @@ public final class BlackjackGame {
         return new BlackjackGame(playerNames, bets, deck);
     }
 
-    public boolean isBusted(final Participant participant) {
-        return participant.isBust();
-    }
-
     public void giveCard(final Player player) {
         player.takeCard(deck.drawCard());
     }
 
     public int getAdditionalCardCount() {
         int count = 0;
-        while (dealer.needMoreCard()) {
+        while (dealer.isNotFinished()) {
             dealer.takeCard(deck.drawCard());
             count += 1;
         }

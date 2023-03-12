@@ -21,7 +21,7 @@ class DealerTest {
     @DisplayName("딜러의 이름은 '딜러'다.")
     @Test
     void dealerName() {
-        assertThat(dealer.getName().getValue()).isEqualTo("딜러");
+        assertThat(dealer.getName()).isEqualTo("딜러");
     }
 
     @DisplayName("딜러는 자신이 가진 카드의 점수 합을 구할 수 있다.")

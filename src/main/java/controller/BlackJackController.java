@@ -60,6 +60,9 @@ public final class BlackJackController {
             blackjackGame.giveCard(player);
             outputView.printPlayerCards(player);
         }
+        if (player.isNotFinished()) {
+            player.stay();
+        }
     }
 
     private boolean wantMoreCard(final Player player) {

@@ -28,10 +28,6 @@ public final class Dealer extends Participant {
         this.state = state.draw(card);
     }
 
-    public boolean needMoreCard() {
-        return getGamePoint().isLowerThan(STANDARD_OF_NEED_MORE_CARD) && !this.isBust();
-    }
-
     public Card getFirstCard() {
         final List<Card> cards = state.cards();
         return cards.get(0);

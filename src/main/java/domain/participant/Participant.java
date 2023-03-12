@@ -25,20 +25,16 @@ public abstract class Participant {
         this.state = new Ready(cards);
     }
 
-    public GamePoint getGamePoint() {
-        return state.getGamePoint();
-    }
-
-    public boolean isBust() {
-        return state.isBust();
-    }
-
-    public boolean isBlackjack() {
-        return state.isBlackjack();
+    public boolean isNotFinished() {
+        return !(state instanceof Finished);
     }
 
     public void stay() {
-        this.state = state.stay();
+        state = state.stay();
+    }
+
+    public GamePoint getGamePoint() {
+        return state.getGamePoint();
     }
 
     public String getName() {
@@ -47,9 +43,5 @@ public abstract class Participant {
 
     public List<Card> getCards() {
         return state.cards();
-    }
-
-    public boolean isNotFinished() {
-        return !(state instanceof Finished);
     }
 }
