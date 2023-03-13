@@ -12,4 +12,19 @@ public final class Bust extends Finished {
     protected double getProfitRate(final State dealerState) {
         return -1;
     }
+
+    @Override
+    public boolean isStay() {
+        return false;
+    }
+
+    @Override
+    public boolean isBlackjack() {
+        return false;
+    }
+
+    @Override
+    public boolean isBust() {
+        return true;
+    }
 }

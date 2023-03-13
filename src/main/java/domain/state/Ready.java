@@ -1,6 +1,7 @@
 package domain.state;
 
 import domain.card.Card;
+import domain.game.GamePoint;
 import domain.game.Hand;
 import domain.participant.Dealer;
 
@@ -8,6 +9,10 @@ import java.util.Collections;
 import java.util.List;
 
 public final class Ready extends State {
+
+
+    public static final GamePoint BLACKJACK_POINT = GamePoint.of(21);
+    public static final int BLACKJACK_CARD_COUNT = 2;
 
     public Ready() {
         super(Hand.create(Collections.emptyList()));
@@ -43,4 +48,19 @@ public final class Ready extends State {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean isStay() {
+        return false;
+    }
+
+    @Override
+    public boolean isBlackjack() {
+        return hand.cardSize() == BLACKJACK_CARD_COUNT &&
+                hand.getGamePoint().isSameAs(BLACKJACK_POINT);
+    }
+
+    @Override
+    public boolean isBust() {
+        return false;
+    }
 }

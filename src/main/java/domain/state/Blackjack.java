@@ -15,4 +15,17 @@ public final class Blackjack extends Finished {
         }
         return 1.5;
     }
+
+    public boolean isStay() {
+        return false;
+    }
+
+    @Override
+    public boolean isBlackjack() {
+        return false;
+    }
+
+    public boolean isBust() {
+        return false;
+    }
 }

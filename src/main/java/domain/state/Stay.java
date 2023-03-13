@@ -29,4 +29,16 @@ public final class Stay extends Finished {
         }
         throw new AssertionError();
     }
+
+    public boolean isStay() {
+        return true;
+    }
+
+    public boolean isBlackjack() {
+        return false;
+    }
+
+    public boolean isBust() {
+        return false;
+    }
 }
