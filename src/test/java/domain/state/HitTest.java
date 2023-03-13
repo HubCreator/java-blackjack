@@ -43,8 +43,9 @@ class HitTest {
 
     @Test
     void bustTest() {
-        final State newState = state.draw(Card.of(CardShape.HEART, CardNumber.of(10)))
-                .draw(Card.of(CardShape.HEART, CardNumber.of(10)));
-        assertThat(newState).isInstanceOf(Bust.class);
+        final State newState = state.draw(Card.of(CardShape.HEART, CardNumber.of(10)));
+        assertThat(newState).isInstanceOf(Hit.class);
+        final State result = newState.draw(Card.of(CardShape.HEART, CardNumber.of(10)));
+        assertThat(result).isInstanceOf(Bust.class);
     }
 }

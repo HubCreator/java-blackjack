@@ -24,26 +24,12 @@ public final class Hand {
     }
 
     public Hand add(final Card card) {
-        final ArrayList<Card> result = new ArrayList<>(cards);
-        result.add(card);
-        return Hand.create(result);
-    }
-
-    public boolean isBlackJack() {
-        return gamePoint.isSameAs(BLACKJACK_POINT)
-                && cards.size() == BLACKJACK_CARD_COUNT;
-    }
-
-    public boolean isBusted() {
-        return gamePoint.isBusted();
+        cards.add(card);
+        return create(cards);
     }
 
     public GamePoint getGamePoint() {
         return gamePoint;
-    }
-
-    public boolean isStay() {
-        return !isBusted() && !isBlackJack();
     }
 
     public List<Card> getCards() {

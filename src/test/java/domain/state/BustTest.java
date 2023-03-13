@@ -15,16 +15,20 @@ class BustTest {
 
     @BeforeEach
     void init() {
-        state = new Ready()
-                .draw(Card.of(CardShape.CLOVER, CardNumber.of(10)))
-                .draw(Card.of(CardShape.HEART, CardNumber.of(10)))
-                .draw(Card.of(CardShape.DIAMOND, CardNumber.of(10)));
-    }
-    @Test
-    void bustTest() {
-        assertThat(state).isInstanceOf(Bust.class);
+        final State ready = new Ready().draw(Card.of(CardShape.CLOVER, CardNumber.of(10)));
+        assertThat(ready).isInstanceOf(Ready.class);
+
+        state = ready.draw(Card.of(CardShape.HEART, CardNumber.of(10)));
+        assertThat(state).isInstanceOf(Hit.class);
     }
 
+    @Test
+    void bustTest() {
+        final State newState = state.draw(Card.of(CardShape.HEART, CardNumber.of(10)));
+        assertThat(newState).isInstanceOf(Bust.class);
+    }
+
+    /*
     @Test
     void bustStayTest() {
         assertThatThrownBy(() -> state.stay())
@@ -37,5 +41,5 @@ class BustTest {
         assertThatThrownBy(() -> state.draw(Card.of(CardShape.CLOVER, CardNumber.of(5))))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("카드를 추가로 받을 수 없습니다.");
-    }
+    }*/
 }

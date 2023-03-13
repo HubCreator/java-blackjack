@@ -63,14 +63,4 @@ public class HandTest {
                 .isSameAs(21);
     }
 
-    @Test
-    @DisplayName("cards의 bust 상태 테스트")
-    void bustTest() {
-        final Hand hand = Hand.create(
-                List.of(Card.of(CardShape.HEART, CardNumber.of(10)),
-                        Card.of(CardShape.HEART, CardNumber.of(10)),
-                        Card.of(CardShape.HEART, CardNumber.of(10)))
-        );
-        assertThat(hand.isBusted()).isTrue();
-    }
 }
