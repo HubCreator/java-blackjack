@@ -2,7 +2,6 @@ package domain.participant;
 
 import domain.card.Card;
 import domain.game.Bet;
-import domain.game.GamePoint;
 
 import java.util.List;
 

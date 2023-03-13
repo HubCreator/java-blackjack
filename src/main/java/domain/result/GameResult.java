@@ -33,7 +33,7 @@ public enum GameResult {
         final GamePoint playerPoint = playerState.getGamePoint();
         final GamePoint dealerPoint = dealerState.getGamePoint();
         if (playerState.isStay() && dealerState.isStay()) {
-            return getGameResult(playerPoint, dealerPoint);
+            return compareGameResult(playerPoint, dealerPoint);
         }
         if (playerState.isBust()) {
             return LOSE;
@@ -47,7 +47,7 @@ public enum GameResult {
         throw new AssertionError();
     }
 
-    private static GameResult getGameResult(final GamePoint playerPoint, final GamePoint dealerPoint) {
+    private static GameResult compareGameResult(final GamePoint playerPoint, final GamePoint dealerPoint) {
         if (playerPoint.isGreaterThan(dealerPoint)) {
             return WIN;
         }
