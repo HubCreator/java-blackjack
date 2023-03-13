@@ -6,11 +6,10 @@ import java.util.List;
 
 public final class GamePoint {
 
-    private static final int BUST = 0;
     public static final int ACE = 1;
     public static final int ACE_UPPER = 11;
     public static final int FACE_CARD = 10;
-    public static final int BLACK_JACK = 21;
+    public static final int MAX = 21;
 
     private final int gamePoint;
 
@@ -19,8 +18,7 @@ public final class GamePoint {
     }
 
     private GamePoint(final List<Card> cards) {
-        int point = getPoint(calculateMaxPoint(cards), getCountOfAce(cards));
-        this.gamePoint = calculateBust(point);
+        this.gamePoint = getPoint(calculateMaxPoint(cards), getCountOfAce(cards));
     }
 
     public static GamePoint create(final List<Card> cards) {
@@ -32,11 +30,11 @@ public final class GamePoint {
     }
 
     private int getPoint(int point, int aceCount) {
-        while (point > BLACK_JACK && aceCount > 0) {
+        while (point > MAX && aceCount > 0) {
             point -= 10;
             aceCount -= 1;
         }
-        return calculateBust(point);
+        return point;
     }
 
     private int calculateMaxPoint(final List<Card> cards) {
@@ -51,13 +49,6 @@ public final class GamePoint {
                 .count();
     }
 
-    private int calculateBust(final int point) {
-        if (point > BLACK_JACK) {
-            return BUST;
-        }
-        return point;
-    }
-
     private int transform(Card card) {
         if (card.isSameAs(ACE)) {
             return ACE_UPPER;
@@ -66,10 +57,6 @@ public final class GamePoint {
             return FACE_CARD;
         }
         return card.getCardNumberValue();
-    }
-
-    public boolean isBusted() {
-        return BUST == gamePoint;
     }
 
     public int getPoint() {

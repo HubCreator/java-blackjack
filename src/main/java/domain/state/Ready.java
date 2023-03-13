@@ -3,13 +3,11 @@ package domain.state;
 import domain.card.Card;
 import domain.game.GamePoint;
 import domain.game.Hand;
-import domain.participant.Dealer;
 
 import java.util.Collections;
 import java.util.List;
 
 public final class Ready extends State {
-
 
     public static final GamePoint BLACKJACK_POINT = GamePoint.of(21);
     public static final int BLACKJACK_CARD_COUNT = 2;
@@ -44,11 +42,6 @@ public final class Ready extends State {
     }
 
     @Override
-    public double calculateProfit(final double bet, final State dealerState) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean isStay() {
         return false;
     }
@@ -62,5 +55,10 @@ public final class Ready extends State {
     @Override
     public boolean isBust() {
         return false;
+    }
+
+    @Override
+    public double calculateProfit(final double bet, final State dealerState) {
+        throw new UnsupportedOperationException();
     }
 }

@@ -40,18 +40,6 @@ public class GamePointTest {
     }
 
     @Test
-    @DisplayName("카드 계산 값이 21이 넘었을 경우 bust(0점)처리 한다.")
-    void optimizeCalculateTest2() {
-        final List<Card> data = List.of(
-                Card.of(CardShape.CLOVER, CardNumber.of(12)),
-                Card.of(CardShape.DIAMOND, CardNumber.of(13)),
-                Card.of(CardShape.HEART, CardNumber.of(2))
-        );
-        final GamePoint gamePoint = GamePoint.create(data);
-        assertThat(gamePoint.getPoint()).isSameAs(0);
-    }
-
-    @Test
     @DisplayName("카드 계산 값이 21 초과이고, ACE값이 있다면 ACE 값은 1로 계산한다.")
     void optimizeCalculateTest3() {
         final List<Card> data = List.of(

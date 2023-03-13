@@ -1,9 +1,12 @@
 package domain.state;
 
 import domain.card.Card;
+import domain.game.GamePoint;
 import domain.game.Hand;
 
 public final class Hit extends Running {
+
+    public static final GamePoint MAX = GamePoint.of(21);
 
     Hit(final Hand hand) {
         super(hand);
@@ -25,6 +28,6 @@ public final class Hit extends Running {
 
     @Override
     public boolean isBust() {
-        return hand.getGamePoint().isSameAs(BUST_POINT);
+        return hand.getGamePoint().isGreaterThan(MAX);
     }
 }

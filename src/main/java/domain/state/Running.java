@@ -1,11 +1,8 @@
 package domain.state;
 
-import domain.game.GamePoint;
 import domain.game.Hand;
 
 public abstract class Running extends State {
-
-    public static final GamePoint BUST_POINT = GamePoint.of(0);
 
     protected Running(final Hand hand) {
         super(hand);
