@@ -9,35 +9,16 @@ public final class Stay extends Finished {
     }
 
     @Override
-    protected double getProfitRate(final State dealerState) {
-        if (dealerState.isBust()) {
-            return 1;
-        }
-        if (dealerState.isBlackjack()) {
-            return -1;
-        }
-        if (dealerState.isStay()) {
-            if (getGamePoint().isGreaterThan(dealerState.getGamePoint())) {
-                return 1;
-            }
-            if (getGamePoint().isSameAs(dealerState.getGamePoint())) {
-                return 0;
-            }
-            if (getGamePoint().isLowerThan(dealerState.getGamePoint())) {
-                return -1;
-            }
-        }
-        throw new AssertionError();
-    }
-
     public boolean isStay() {
         return true;
     }
 
+    @Override
     public boolean isBlackjack() {
         return false;
     }
 
+    @Override
     public boolean isBust() {
         return false;
     }

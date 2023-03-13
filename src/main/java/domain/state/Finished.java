@@ -2,6 +2,7 @@ package domain.state;
 
 import domain.card.Card;
 import domain.game.Hand;
+import domain.result.GameResult;
 
 public abstract class Finished extends State {
 
@@ -21,9 +22,8 @@ public abstract class Finished extends State {
 
     @Override
     public double calculateProfit(final double bet, final State dealerState) {
-        return bet * getProfitRate(dealerState);
+        final GameResult gameResult = GameResult.calculate(this, dealerState);
+        return gameResult.getProfit(this, bet);
     }
-
-    protected abstract double getProfitRate(State dealerState);
 
 }

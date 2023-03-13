@@ -41,7 +41,7 @@ public final class TranslationUtil {
     }
 
     public static String translatePoint(final int point) {
-        if (point == 0) {
+        if (point > 21) {
             return "버스트";
         }
         return String.valueOf(point);

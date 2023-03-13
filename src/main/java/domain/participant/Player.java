@@ -37,18 +37,6 @@ public final class Player extends Participant {
         }
     }
 
-    public boolean hasLowerThan(final GamePoint gamePoint) {
-        return getGamePoint().isLowerThan(gamePoint);
-    }
-
-    public boolean hasSameAs(final GamePoint gamePoint) {
-        return getGamePoint().isSameAs(gamePoint);
-    }
-
-    public boolean hasGreaterThan(final GamePoint gamePoint) {
-        return getGamePoint().isGreaterThan(gamePoint);
-    }
-
     public double getBet() {
         return bet.getBet();
     }
