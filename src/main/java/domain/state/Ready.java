@@ -17,14 +17,18 @@ public final class Ready extends State {
         super(Hand.create(hand));
     }
 
+    public Ready(final Hand newHand) {
+        super(newHand);
+    }
+
     @Override
     public State draw(final Card card) {
         final Hand newHand = hand.add(card);
         if (newHand.isBlackJack()) {
             return new Blackjack(newHand);
         }
-        if (newHand.isBusted()) {
-            return new Bust(newHand);
+        if (newHand.cardSize() < 2) {
+            return new Ready(newHand);
         }
         return new Hit(newHand);
     }

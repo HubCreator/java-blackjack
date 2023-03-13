@@ -52,4 +52,7 @@ public final class Hand {
                 .collect(Collectors.toUnmodifiableList());
     }
 
+    public int cardSize() {
+        return cards.size();
+    }
 }
