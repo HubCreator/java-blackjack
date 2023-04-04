@@ -2,8 +2,8 @@ package domain.game;
 
 public final class Bet {
 
-    public static final int MIN_UNIT = 1000;
-    
+    public static final int MIN_UNIT = 1_000;
+
     private final double bet;
 
     public Bet(final double bet) {
