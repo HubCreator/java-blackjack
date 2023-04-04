@@ -1,0 +1,35 @@
+package domain;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public final class Names {
+
+    private static final String DELIMITER = ",";
+    private static final Name dealerName = Name.of("딜러");
+
+    private final List<Name> names;
+
+    private Names(final List<Name> names) {
+        this.names = names;
+    }
+
+    public static Names from(final String input) {
+        return new Names(validateAndCovert(input));
+    }
+
+    private static List<Name> validateAndCovert(final String input) {
+        final List<Name> result = Arrays.stream(input.split(DELIMITER))
+                .map(Name::of)
+                .collect(Collectors.toList());
+        if (result.stream().anyMatch(dealerName::equals)) {
+            throw new IllegalArgumentException("참여자는 딜러라는 이름을 사용할 수 없습니다.");
+        }
+        return result;
+    }
+
+    public List<Name> getNames() {
+        return List.copyOf(names);
+    }
+}
