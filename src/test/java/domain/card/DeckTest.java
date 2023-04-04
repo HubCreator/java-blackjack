@@ -33,7 +33,7 @@ class DeckTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 10, 20, 52})
-    void 덱에서_카드를_뽑으면_뽑은_만큼ㅣㄷㅁㄱ_줄어든다(int count) {
+    void 덱에서_카드를_뽑으면_뽑은_만큼_줄어든다(int count) {
 
         // when
         for (int i = 0; i < count; i++) {
