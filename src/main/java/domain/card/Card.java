@@ -5,15 +5,23 @@ import java.util.Objects;
 public final class Card {
 
     private final Suit suit;
-    private final Number value;
+    private final Number number;
 
-    private Card(final Suit suit, final Number value) {
+    private Card(final Suit suit, final Number number) {
         this.suit = suit;
-        this.value = value;
+        this.number = number;
     }
 
     public static Card of(final Suit suit, final Number value) {
         return new Card(suit, value);
+    }
+
+    public int getNumber() {
+        return number.getValue();
+    }
+
+    public boolean isAce() {
+        return number == Number.ACE;
     }
 
     @Override
@@ -26,11 +34,11 @@ public final class Card {
             return false;
         }
         final Card card = (Card) o;
-        return suit == card.suit && value == card.value;
+        return suit == card.suit && number == card.number;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(suit, value);
+        return Objects.hash(suit, number);
     }
 }

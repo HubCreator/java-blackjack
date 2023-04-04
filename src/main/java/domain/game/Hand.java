@@ -8,9 +8,11 @@ import java.util.List;
 public final class Hand {
 
     private final List<Card> cards;
+    private final Score score;
 
     private Hand(final List<Card> cards) {
         this.cards = cards;
+        this.score = Score.from(cards);
     }
 
     public static Hand of(final List<Card> cards) {
@@ -25,5 +27,9 @@ public final class Hand {
 
     public List<Card> getCards() {
         return List.copyOf(cards);
+    }
+
+    public int getScore() {
+        return score.getScore();
     }
 }
