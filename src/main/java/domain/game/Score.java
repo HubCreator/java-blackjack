@@ -22,6 +22,9 @@ public final class Score {
 
         if (totalScore > 21) {
             final long count = cards.stream().filter(Card::isAce).count();
+            if (count == 0) {
+                return totalScore;
+            }
             for (int i = 0; i < count && totalScore > 21; i++) {
                 totalScore -= 10;
             }
@@ -35,6 +38,10 @@ public final class Score {
 
     public boolean isSameAs(final Score score) {
         return this.equals(score);
+    }
+
+    public boolean isOverThan(final Score value) {
+        return this.score > value.score;
     }
 
     public int getScore() {

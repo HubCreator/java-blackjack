@@ -7,6 +7,8 @@ import java.util.List;
 
 public final class Hand {
 
+    public static final Score BLACKJACK_SCORE = Score.of(21);
+
     private final List<Card> cards;
     private final Score score;
 
@@ -23,6 +25,14 @@ public final class Hand {
         final ArrayList<Card> newCards = new ArrayList<>(cards);
         newCards.add(card);
         return of(newCards);
+    }
+
+    public boolean isBusted() {
+        return score.isOverThan(BLACKJACK_SCORE);
+    }
+
+    public boolean isBlackjack() {
+        return score.isSameAs(BLACKJACK_SCORE);
     }
 
     public List<Card> getCards() {
