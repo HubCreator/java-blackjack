@@ -8,6 +8,7 @@ import java.util.List;
 public final class Hand {
 
     public static final Score BLACKJACK_SCORE = Score.of(21);
+    public static final Score DEALER_STANDARD_SCORE = Score.of(16);
 
     private final List<Card> cards;
     private final Score score;
@@ -33,6 +34,10 @@ public final class Hand {
 
     public boolean isBlackjack() {
         return score.isSameAs(BLACKJACK_SCORE);
+    }
+
+    public boolean isOverDealerStandard() {
+        return score.isOverThan(DEALER_STANDARD_SCORE);
     }
 
     public List<Card> getCards() {

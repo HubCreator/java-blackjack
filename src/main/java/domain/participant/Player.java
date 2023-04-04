@@ -49,4 +49,8 @@ public final class Player {
     public double score() {
         return hand.getScore();
     }
+
+    public String name() {
+        return name.getName();
+    }
 }
