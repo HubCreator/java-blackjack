@@ -52,16 +52,28 @@ public final class Player {
         }
     }
 
-    private boolean isBusted() {
+    public boolean isBusted() {
         return hand.isBusted();
     }
 
-    private boolean isBlackjack() {
+    public boolean isBlackjack() {
         return hand.isBlackjack();
     }
 
     public boolean isHit() {
         return !isBusted() && !isBlackjack();
+    }
+
+    public boolean hasLowerThan(final Score score) {
+        return hand.hasLowerScoreThan(score);
+    }
+
+    public boolean hasSameAs(final Score score) {
+        return hand.hasSameScoreAs(score);
+    }
+
+    public boolean hasGreaterThan(final Score score) {
+        return hand.hasGreaterScoreThan(score);
     }
 
     public Name getName() {
@@ -82,5 +94,9 @@ public final class Player {
 
     public int score() {
         return hand.getScore().getScore();
+    }
+
+    public int bet() {
+        return bet.getBet();
     }
 }

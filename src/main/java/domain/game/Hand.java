@@ -47,4 +47,16 @@ public final class Hand {
     public Score getScore() {
         return score;
     }
+
+    public boolean hasLowerScoreThan(final Score score) {
+        return this.score.getScore() < score.getScore();
+    }
+
+    public boolean hasSameScoreAs(final Score score) {
+        return this.score.getScore() == score.getScore();
+    }
+
+    public boolean hasGreaterScoreThan(final Score score) {
+        return this.score.getScore() > score.getScore();
+    }
 }

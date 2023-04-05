@@ -1,6 +1,7 @@
 package domain.game;
 
 import domain.card.Deck;
+import domain.game.result.ProfitResult;
 import domain.participant.Dealer;
 import domain.participant.Name;
 import domain.participant.Names;
@@ -55,6 +56,14 @@ public final class Blackjack {
         return dealer.finalizeTurn(deck);
     }
 
+    public List<Player> getPlayers() {
+        return players.getPlayers();
+    }
+
+    public String getDealerName() {
+        return dealer.getName().getName();
+    }
+
     public Map<Name, Hand> getInitialStatus() {
         Map<Name, Hand> result = new LinkedHashMap<>();
         result.put(dealer.getName(), dealer.getInitialHand());
@@ -62,14 +71,6 @@ public final class Blackjack {
             result.put(player.getName(), player.getHand());
         }
         return result;
-    }
-
-    public List<Player> getPlayers() {
-        return players.getPlayers();
-    }
-
-    public String getDealerName() {
-        return dealer.getName().getName();
     }
 
     public Map<Name, Hand> getFinalStatus() {
@@ -88,5 +89,9 @@ public final class Blackjack {
             result.put(player.getName(), player.getScore());
         }
         return result;
+    }
+
+    public ProfitResult getProfitStatus() {
+        return ProfitResult.of(dealer, players);
     }
 }

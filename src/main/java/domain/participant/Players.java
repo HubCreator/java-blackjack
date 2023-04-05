@@ -1,8 +1,10 @@
 package domain.participant;
 
 import domain.card.Deck;
+import domain.game.Score;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Players {
 
@@ -22,6 +24,24 @@ public final class Players {
                 player.take(deck.draw());
             }
         }
+    }
+
+    public List<Player> findPlayersLowerThan(final Score score) {
+        return players.stream()
+                .filter(player -> player.hasLowerThan(score))
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    public List<Player> findPlayerSameAs(final Score score) {
+        return players.stream()
+                .filter(player -> player.hasSameAs(score))
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    public List<Player> findPlayerGreaterThan(final Score score) {
+        return players.stream()
+                .filter(player -> player.hasGreaterThan(score))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Player> getPlayers() {

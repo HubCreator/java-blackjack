@@ -21,7 +21,7 @@ public final class Names {
 
     private static List<Name> validateAndCovert(final String input) {
         final List<Name> result = Arrays.stream(input.split(DELIMITER))
-                .map(Name::of)
+                .map(name -> Name.of(name.trim()))
                 .collect(Collectors.toList());
         if (result.stream().anyMatch(dealerName::equals)) {
             throw new IllegalArgumentException("참여자는 딜러라는 이름을 사용할 수 없습니다.");

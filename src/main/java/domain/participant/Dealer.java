@@ -59,11 +59,11 @@ public final class Dealer {
         return hand.isOverDealerStandard();
     }
 
-    private boolean isBusted() {
+    public boolean isBusted() {
         return hand.isBusted();
     }
 
-    private boolean isBlackjack() {
+    public boolean isBlackjack() {
         return hand.isBlackjack();
     }
 

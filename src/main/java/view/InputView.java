@@ -12,27 +12,27 @@ public final class InputView {
 
     public String requestNames() {
         println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
-        return readLine();
+        return readLine().trim();
     }
 
-    public double requestBet(final String playerName) {
+    public int requestBet(final String playerName) {
         lineSeparator();
-        println(String.format("%s의 배팅 금액은?", playerName));
-        return toNumber(readLine());
+        println(String.format("%s의 베팅 금액은?", playerName));
+        return toNumber(readLine().trim());
     }
 
-    private double toNumber(final String price) {
+    private int toNumber(final String price) {
         try {
-            return Double.parseDouble(price);
+            return Integer.parseInt(price);
         } catch (NumberFormatException exception) {
-            println("숫자를 입력해야 합니다.");
-            throw new IllegalArgumentException(exception);
+            throw new IllegalArgumentException("숫자를 입력해야 합니다.", exception);
         }
     }
 
     public boolean requestDraw(final String name) {
+        lineSeparator();
         println(String.format("%s는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)", name));
-        String input = readLine();
+        String input = readLine().trim();
         if (input.equals("y")) {
             return true;
         }

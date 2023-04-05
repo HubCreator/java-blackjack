@@ -30,6 +30,7 @@ public final class BlackjackController {
         requestDraws(blackjack);
         letDealerDraw(blackjack);
         printFinalStatus(blackjack);
+        printProfit(blackjack);
     }
 
     private Names requestNames() {
@@ -39,7 +40,7 @@ public final class BlackjackController {
     private Bets requestBets(final Names names) {
         final List<Bet> betList = new ArrayList<>();
         for (Name name : names.getNames()) {
-            final double value = inputView.requestBet(name.getName());
+            final int value = inputView.requestBet(name.getName());
             betList.add(Bet.of(value));
         }
         return Bets.from(betList);
@@ -69,5 +70,9 @@ public final class BlackjackController {
 
     private void printFinalStatus(final Blackjack blackjack) {
         outputView.printFinalStatus(blackjack.getFinalStatus(), blackjack.getScoreStatus());
+    }
+
+    private void printProfit(final Blackjack blackjack) {
+        outputView.printProfit(blackjack.getDealerName(), blackjack.getProfitStatus());
     }
 }
