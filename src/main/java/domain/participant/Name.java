@@ -18,6 +18,9 @@ public final class Name {
     }
 
     private static void validateName(final String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("이름은 빈 칸일 수 없습니다.");
+        }
         if (name.length() > MAX_LENGTH) {
             throw new IllegalArgumentException(
                     String.format("이름의 길이는 %d글자 이하여야 합니다.", MAX_LENGTH)
