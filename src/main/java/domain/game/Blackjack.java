@@ -41,16 +41,18 @@ public final class Blackjack {
     }
 
     private void init() {
-        for (int i = 0; i < INITIAL_CARD_COUNT; i++) {
-            for (Player player : players.getPlayers()) {
-                player.take(deck.draw());
-            }
-            dealer.take(deck.draw());
+        for (Player player : players.getPlayers()) {
+            player.take(deck, INITIAL_CARD_COUNT);
         }
+        dealer.take(deck, INITIAL_CARD_COUNT);
     }
 
     public void letPlayerDraw(final Player player) {
         player.take(deck.draw());
+    }
+
+    public int finalizeDealerTurn() {
+        return dealer.finalizeTurn(deck);
     }
 
     public Map<Name, Hand> getInitialStatus() {
@@ -64,5 +66,27 @@ public final class Blackjack {
 
     public List<Player> getPlayers() {
         return players.getPlayers();
+    }
+
+    public String getDealerName() {
+        return dealer.getName().getName();
+    }
+
+    public Map<Name, Hand> getFinalStatus() {
+        Map<Name, Hand> result = new LinkedHashMap<>();
+        result.put(dealer.getName(), dealer.getHand());
+        for (Player player : players.getPlayers()) {
+            result.put(player.getName(), player.getHand());
+        }
+        return result;
+    }
+
+    public Map<Name, Score> getScoreStatus() {
+        Map<Name, Score> result = new LinkedHashMap<>();
+        result.put(dealer.getName(), dealer.getScore());
+        for (Player player : players.getPlayers()) {
+            result.put(player.getName(), player.getScore());
+        }
+        return result;
     }
 }

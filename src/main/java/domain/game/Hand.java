@@ -44,7 +44,7 @@ public final class Hand {
         return List.copyOf(cards);
     }
 
-    public int getScore() {
-        return score.getScore();
+    public Score getScore() {
+        return score;
     }
 }
