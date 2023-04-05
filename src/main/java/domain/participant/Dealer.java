@@ -32,14 +32,14 @@ public final class Dealer {
         hand = hand.take(card);
     }
 
-    private boolean isOverDealerStandard() {
-        return hand.isOverDealerStandard();
-    }
-
     public void take(final Card... cards) {
         for (Card card : cards) {
             hand = hand.take(card);
         }
+    }
+
+    private boolean isOverDealerStandard() {
+        return hand.isOverDealerStandard();
     }
 
     private boolean isBusted() {

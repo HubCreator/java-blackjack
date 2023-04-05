@@ -32,4 +32,8 @@ public final class Names {
     public List<Name> getNames() {
         return List.copyOf(names);
     }
+
+    public int size() {
+        return names.size();
+    }
 }
