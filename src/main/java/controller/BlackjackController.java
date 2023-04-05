@@ -12,6 +12,8 @@ import view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.util.Repeater.repeat;
+
 public final class BlackjackController {
 
     private final InputView inputView;
@@ -23,9 +25,8 @@ public final class BlackjackController {
     }
 
     public void process() {
-        final Names names = requestNames();
-        final Bets bets = requestBets(names);
-        final Blackjack blackjack = Blackjack.create(names, bets);
+        final Blackjack blackjack = initBlackjack();
+
         printInitialStatus(blackjack);
         requestDraws(blackjack);
         letDealerDraw(blackjack);
@@ -33,14 +34,20 @@ public final class BlackjackController {
         printProfit(blackjack);
     }
 
+    private Blackjack initBlackjack() {
+        final Names names = repeat(this::requestNames);
+        final Bets bets = repeat(() -> requestBets(names));
+        return Blackjack.create(names, bets);
+    }
+
     private Names requestNames() {
-        return Names.from(inputView.requestNames());
+        return repeat(() -> Names.from(inputView.requestNames()));
     }
 
     private Bets requestBets(final Names names) {
         final List<Bet> betList = new ArrayList<>();
         for (Name name : names.getNames()) {
-            final int value = inputView.requestBet(name.getName());
+            final int value = repeat(() -> inputView.requestBet(name.getName()));
             betList.add(Bet.of(value));
         }
         return Bets.from(betList);
@@ -57,7 +64,7 @@ public final class BlackjackController {
     }
 
     private void requestDraw(final Blackjack blackjack, final Player player) {
-        while (player.isHit() && inputView.requestDraw(player.name())) {
+        while (player.isHit() && repeat(() -> inputView.requestDraw(player.name()))) {
             blackjack.letPlayerDraw(player);
             outputView.printPlayerStatus(player.name(), player.getHand());
         }
