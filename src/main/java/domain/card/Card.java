@@ -24,6 +24,10 @@ public final class Card {
         return number;
     }
 
+    public int getNumberValue() {
+        return number.getValue();
+    }
+
     public Suit getSuit() {
         return suit;
     }

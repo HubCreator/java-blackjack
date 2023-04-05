@@ -4,6 +4,7 @@ import domain.card.Card;
 import domain.card.Number;
 import domain.card.Suit;
 import domain.game.Bet;
+import domain.game.Score;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class PlayerTest {
                 Card.of(Suit.SPADE, Number.TWO),
                 Card.of(Suit.SPADE, Number.THREE)
         );
-        assertThat(player.score()).isEqualTo(16);
+        assertThat(player.getScore()).isEqualTo(Score.of(16));
     }
 
     @Test
@@ -41,7 +42,7 @@ class PlayerTest {
                 Card.of(Suit.SPADE, Number.THREE),
                 Card.of(Suit.HEART, Number.JACK)
         );
-        assertThat(player.score()).isEqualTo(16);
+        assertThat(player.getScore()).isEqualTo(Score.of(16));
     }
 
     @Test

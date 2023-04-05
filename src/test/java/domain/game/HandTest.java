@@ -48,7 +48,7 @@ class HandTest {
         final Hand newHand = hand.take(Card.of(Suit.SPADE, Number.ACE));
 
         // then
-        assertThat(newHand.getScore()).isEqualTo(21);
+        assertThat(newHand.getScore()).isEqualTo(Score.of(21));
     }
 
     @Test
@@ -58,7 +58,7 @@ class HandTest {
         final Hand newHand2 = newHand1.take(Card.of(Suit.SPADE, Number.ACE));
 
         // then
-        assertThat(newHand2.getScore()).isEqualTo(16);
+        assertThat(newHand2.getScore()).isEqualTo(Score.of(16));
     }
 
     @Test
@@ -73,6 +73,6 @@ class HandTest {
         final Hand hand = Hand.of(cards);
 
         // then
-        assertThat(hand.getScore()).isEqualTo(21);
+        assertThat(hand.getScore()).isEqualTo(Score.of(21));
     }
 }

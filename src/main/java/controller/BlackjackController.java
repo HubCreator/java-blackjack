@@ -64,9 +64,9 @@ public final class BlackjackController {
     }
 
     private void requestDraw(final Blackjack blackjack, final Player player) {
-        while (player.isHit() && repeat(() -> inputView.requestDraw(player.name()))) {
+        while (player.isHit() && repeat(() -> inputView.requestDraw(player.getNameValue()))) {
             blackjack.letPlayerDraw(player);
-            outputView.printPlayerStatus(player.name(), player.getHand());
+            outputView.printPlayerStatus(player.getNameValue(), player.getCards());
         }
     }
 

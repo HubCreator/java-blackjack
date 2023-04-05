@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public final class Names {
 
     private static final String DELIMITER = ",";
-    private static final Name dealerName = Name.of("딜러");
+    private static final Name dealerName = Name.of(Dealer.DEALER_NAME);
 
     private final List<Name> names;
 

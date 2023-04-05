@@ -17,30 +17,38 @@ public final class Score {
         return new Score(optimizeScore(cards));
     }
 
-    private static int optimizeScore(final List<Card> cards) {
-        int totalScore = cards.stream().mapToInt(card -> card.getNumber().getValue()).sum();
+    public static Score of(final int score) {
+        return new Score(score);
+    }
 
-        if (totalScore > 21) {
-            final long count = cards.stream().filter(Card::isAce).count();
+    private static int optimizeScore(final List<Card> cards) {
+        int totalScore = cards.stream()
+                .mapToInt(Card::getNumberValue)
+                .sum();
+
+        if (totalScore > Hand.BLACKJACK_NUMBER) {
+            final long count = cards.stream()
+                    .filter(Card::isAce)
+                    .count();
             if (count == 0) {
                 return totalScore;
             }
-            for (int i = 0; i < count && totalScore > 21; i++) {
+            for (int i = 0; i < count && totalScore > Hand.BLACKJACK_NUMBER; i++) {
                 totalScore -= 10;
             }
         }
         return totalScore;
     }
 
-    public static Score of(final int score) {
-        return new Score(score);
+    public boolean isLowerThan(final Score score) {
+        return this.score < score.score;
     }
 
     public boolean isSameAs(final Score score) {
         return this.equals(score);
     }
 
-    public boolean isOverThan(final Score value) {
+    public boolean isGreaterThan(final Score value) {
         return this.score > value.score;
     }
 

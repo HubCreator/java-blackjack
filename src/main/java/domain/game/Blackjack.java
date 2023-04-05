@@ -1,5 +1,6 @@
 package domain.game;
 
+import domain.card.Card;
 import domain.card.Deck;
 import domain.game.result.ProfitResult;
 import domain.participant.Dealer;
@@ -48,11 +49,11 @@ public final class Blackjack {
         dealer.take(deck, INITIAL_CARD_COUNT);
     }
 
-    public Map<Name, Hand> getInitialStatus() {
-        Map<Name, Hand> result = new LinkedHashMap<>();
-        result.put(dealer.getName(), dealer.getInitialHand());
+    public Map<Name, List<Card>> getInitialStatus() {
+        final Map<Name, List<Card>> result = new LinkedHashMap<>();
+        result.put(dealer.getName(), List.of(dealer.getInitialCard()));
         for (Player player : players.getPlayers()) {
-            result.put(player.getName(), player.getHand());
+            result.put(player.getName(), player.getCards());
         }
         return result;
     }
@@ -65,25 +66,17 @@ public final class Blackjack {
         return dealer.finalizeTurn(deck);
     }
 
-    public List<Player> getPlayers() {
-        return players.getPlayers();
-    }
-
-    public String getDealerName() {
-        return dealer.getName().getName();
-    }
-
-    public Map<Name, Hand> getFinalStatus() {
-        Map<Name, Hand> result = new LinkedHashMap<>();
-        result.put(dealer.getName(), dealer.getHand());
+    public Map<Name, List<Card>> getFinalStatus() {
+        final Map<Name, List<Card>> result = new LinkedHashMap<>();
+        result.put(dealer.getName(), dealer.getHand().getCards());
         for (Player player : players.getPlayers()) {
-            result.put(player.getName(), player.getHand());
+            result.put(player.getName(), player.getCards());
         }
         return result;
     }
 
     public Map<Name, Score> getScoreStatus() {
-        Map<Name, Score> result = new LinkedHashMap<>();
+        final Map<Name, Score> result = new LinkedHashMap<>();
         result.put(dealer.getName(), dealer.getScore());
         for (Player player : players.getPlayers()) {
             result.put(player.getName(), player.getScore());
@@ -93,5 +86,13 @@ public final class Blackjack {
 
     public ProfitResult getProfitStatus() {
         return ProfitResult.of(dealer, players);
+    }
+
+    public List<Player> getPlayers() {
+        return players.getPlayers();
+    }
+
+    public String getDealerName() {
+        return dealer.getName().getName();
     }
 }

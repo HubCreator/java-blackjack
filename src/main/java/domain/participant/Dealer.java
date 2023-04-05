@@ -6,11 +6,11 @@ import domain.game.Hand;
 import domain.game.Score;
 
 import java.util.Collections;
-import java.util.List;
 
 public final class Dealer {
 
     public static final int FIRST_CARD_INDEX = 0;
+    public static final String DEALER_NAME = "딜러";
 
     private final Name name;
     private Hand hand;
@@ -21,7 +21,7 @@ public final class Dealer {
     }
 
     public static Dealer create() {
-        return new Dealer(Name.of("딜러"));
+        return new Dealer(Name.of(DEALER_NAME));
     }
 
     private void validateHit() {
@@ -32,7 +32,9 @@ public final class Dealer {
             throw new IllegalStateException("블랙잭 상태에서는 더이상 카드를 뽑을 수 없습니다.");
         }
         if (isOverDealerStandard()) {
-            throw new IllegalStateException("점수가 17점 이상이면 더 이상 카드를 뽑을 수 없습니다.");
+            throw new IllegalStateException(
+                    String.format("점수가 %d점 초과면 더 이상 카드를 뽑을 수 없습니다.", Hand.DEALER_STANDARD_NUMBER)
+            );
         }
     }
 
@@ -59,11 +61,11 @@ public final class Dealer {
         return hand.isOverDealerStandard();
     }
 
-    public boolean isBusted() {
+    private boolean isBusted() {
         return hand.isBusted();
     }
 
-    public boolean isBlackjack() {
+    private boolean isBlackjack() {
         return hand.isBlackjack();
     }
 
@@ -74,10 +76,6 @@ public final class Dealer {
             count += 1;
         }
         return count;
-    }
-
-    public int score() {
-        return hand.getScore().getScore();
     }
 
     public Score getScore() {
@@ -92,8 +90,7 @@ public final class Dealer {
         return hand;
     }
 
-    public Hand getInitialHand() {
-        Card card = hand.getCards().get(FIRST_CARD_INDEX);
-        return Hand.of(List.of(card));
+    public Card getInitialCard() {
+        return hand.getCards().get(FIRST_CARD_INDEX);
     }
 }

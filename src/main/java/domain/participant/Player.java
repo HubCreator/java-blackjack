@@ -7,6 +7,7 @@ import domain.game.Hand;
 import domain.game.Score;
 
 import java.util.Collections;
+import java.util.List;
 
 public final class Player {
 
@@ -64,39 +65,35 @@ public final class Player {
         return !isBusted() && !isBlackjack();
     }
 
-    public boolean hasLowerThan(final Score score) {
-        return hand.hasLowerScoreThan(score);
+    public boolean isLowerThan(final Score score) {
+        return hand.isLowerThan(score);
     }
 
-    public boolean hasSameAs(final Score score) {
-        return hand.hasSameScoreAs(score);
+    public boolean isSameAs(final Score score) {
+        return hand.isSameAs(score);
     }
 
-    public boolean hasGreaterThan(final Score score) {
-        return hand.hasGreaterScoreThan(score);
+    public boolean isGreaterThan(final Score score) {
+        return hand.isGreaterThan(score);
     }
 
     public Name getName() {
         return name;
     }
 
-    public String name() {
+    public String getNameValue() {
         return name.getName();
-    }
-
-    public Hand getHand() {
-        return hand;
     }
 
     public Score getScore() {
         return hand.getScore();
     }
 
-    public int score() {
-        return hand.getScore().getScore();
+    public int getBetValue() {
+        return bet.getBet();
     }
 
-    public int bet() {
-        return bet.getBet();
+    public List<Card> getCards() {
+        return List.copyOf(hand.getCards());
     }
 }

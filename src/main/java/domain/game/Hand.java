@@ -7,8 +7,10 @@ import java.util.List;
 
 public final class Hand {
 
-    public static final Score BLACKJACK_SCORE = Score.of(21);
-    public static final Score DEALER_STANDARD_SCORE = Score.of(16);
+    public static final int BLACKJACK_NUMBER = 21;
+    public static final int DEALER_STANDARD_NUMBER = 16;
+    public static final Score BLACKJACK_SCORE = Score.of(BLACKJACK_NUMBER);
+    public static final Score DEALER_STANDARD_SCORE = Score.of(DEALER_STANDARD_NUMBER);
 
     private final List<Card> cards;
     private final Score score;
@@ -29,7 +31,7 @@ public final class Hand {
     }
 
     public boolean isBusted() {
-        return score.isOverThan(BLACKJACK_SCORE);
+        return score.isGreaterThan(BLACKJACK_SCORE);
     }
 
     public boolean isBlackjack() {
@@ -37,7 +39,19 @@ public final class Hand {
     }
 
     public boolean isOverDealerStandard() {
-        return score.isOverThan(DEALER_STANDARD_SCORE);
+        return score.isGreaterThan(DEALER_STANDARD_SCORE);
+    }
+
+    public boolean isLowerThan(final Score score) {
+        return this.score.isLowerThan(score);
+    }
+
+    public boolean isSameAs(final Score score) {
+        return this.score.isSameAs(score);
+    }
+
+    public boolean isGreaterThan(final Score score) {
+        return this.score.isGreaterThan(score);
     }
 
     public List<Card> getCards() {
@@ -48,15 +62,7 @@ public final class Hand {
         return score;
     }
 
-    public boolean hasLowerScoreThan(final Score score) {
-        return this.score.getScore() < score.getScore();
-    }
-
-    public boolean hasSameScoreAs(final Score score) {
-        return this.score.getScore() == score.getScore();
-    }
-
-    public boolean hasGreaterScoreThan(final Score score) {
-        return this.score.getScore() > score.getScore();
+    public int getScoreValue() {
+        return score.getScore();
     }
 }

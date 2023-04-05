@@ -5,6 +5,7 @@ import java.util.Objects;
 public final class Name {
 
     public static final int MAX_LENGTH = 5;
+
     private final String name;
 
     private Name(final String name) {

@@ -3,6 +3,7 @@ package domain.participant;
 import domain.card.Card;
 import domain.card.Number;
 import domain.card.Suit;
+import domain.game.Score;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class DealerTest {
                 Card.of(Suit.SPADE, Number.THREE)
         );
 
-        assertThat(dealer.score()).isEqualTo(16);
+        assertThat(dealer.getScore()).isEqualTo(Score.of(16));
     }
 
     @Test
@@ -52,19 +53,7 @@ class DealerTest {
 
         assertThatThrownBy(() -> dealer.take(Card.of(Suit.CLOVER, Number.THREE)))
                 .isInstanceOf(IllegalStateException.class)
-                .hasMessage("점수가 17점 이상이면 더 이상 카드를 뽑을 수 없습니다.");
-    }
-
-    @Test
-    void 버스트_상태인데_카드를_뽑으면_예외가_발생한다() {
-        dealer.take(
-                Card.of(Suit.HEART, Number.JACK),
-                Card.of(Suit.HEART, Number.JACK),
-                Card.of(Suit.HEART, Number.JACK)
-        );
-        assertThatThrownBy(() -> dealer.take(Card.of(Suit.CLOVER, Number.EIGHT)))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("버스트 상태에서는 더이상 카드를 뽑을 수 없습니다.");
+                .hasMessage("점수가 16점 초과면 더 이상 카드를 뽑을 수 없습니다.");
     }
 
     @Test

@@ -28,19 +28,19 @@ public final class Players {
 
     public List<Player> findPlayersLowerThan(final Score score) {
         return players.stream()
-                .filter(player -> player.hasLowerThan(score))
+                .filter(player -> player.isLowerThan(score))
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Player> findPlayerSameAs(final Score score) {
         return players.stream()
-                .filter(player -> player.hasSameAs(score))
+                .filter(player -> player.isSameAs(score))
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public List<Player> findPlayerGreaterThan(final Score score) {
         return players.stream()
-                .filter(player -> player.hasGreaterThan(score))
+                .filter(player -> player.isGreaterThan(score))
                 .collect(Collectors.toUnmodifiableList());
     }
 
