@@ -1,6 +1,7 @@
 package domain.card;
 
 public enum Number {
+
     ACE(11),
     TWO(2),
     THREE(3),

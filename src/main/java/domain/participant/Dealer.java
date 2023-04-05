@@ -1,11 +1,15 @@
 package domain.participant;
 
 import domain.card.Card;
+import domain.card.Deck;
 import domain.game.Hand;
 
 import java.util.Collections;
+import java.util.List;
 
 public final class Dealer {
+
+    public static final int FIRST_CARD_INDEX = 0;
 
     private final Name name;
     private Hand hand;
@@ -54,7 +58,16 @@ public final class Dealer {
         return hand.getScore();
     }
 
-    public String name() {
-        return name.getName();
+    public Name getName() {
+        return name;
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public Hand getInitialHand() {
+        Card card = hand.getCards().get(FIRST_CARD_INDEX);
+        return Hand.of(List.of(card));
     }
 }

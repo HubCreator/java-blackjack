@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public final class Name {
 
-    public static final int MIN_LENGTH = 5;
+    public static final int MAX_LENGTH = 5;
     private final String name;
 
     private Name(final String name) {
@@ -17,9 +17,9 @@ public final class Name {
     }
 
     private static void validateName(final String name) {
-        if (name.length() > MIN_LENGTH) {
+        if (name.length() > MAX_LENGTH) {
             throw new IllegalArgumentException(
-                    String.format("이름의 길이는 %d글자 이하여야 합니다.", MIN_LENGTH)
+                    String.format("이름의 길이는 %d글자 이하여야 합니다.", MAX_LENGTH)
             );
         }
     }

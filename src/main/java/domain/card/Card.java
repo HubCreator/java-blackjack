@@ -16,12 +16,16 @@ public final class Card {
         return new Card(suit, value);
     }
 
-    public int getNumber() {
-        return number.getValue();
-    }
-
     public boolean isAce() {
         return number == Number.ACE;
+    }
+
+    public Number getNumber() {
+        return number;
+    }
+
+    public Suit getSuit() {
+        return suit;
     }
 
     @Override

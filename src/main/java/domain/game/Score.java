@@ -18,7 +18,7 @@ public final class Score {
     }
 
     private static int optimizeScore(final List<Card> cards) {
-        int totalScore = cards.stream().mapToInt(Card::getNumber).sum();
+        int totalScore = cards.stream().mapToInt(card -> card.getNumber().getValue()).sum();
 
         if (totalScore > 21) {
             final long count = cards.stream().filter(Card::isAce).count();

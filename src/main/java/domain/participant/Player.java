@@ -1,6 +1,7 @@
 package domain.participant;
 
 import domain.card.Card;
+import domain.card.Deck;
 import domain.game.Bet;
 import domain.game.Hand;
 
@@ -50,7 +51,11 @@ public final class Player {
         return hand.getScore();
     }
 
-    public String name() {
-        return name.getName();
+    public Name getName() {
+        return name;
+    }
+
+    public Hand getHand() {
+        return hand;
     }
 }

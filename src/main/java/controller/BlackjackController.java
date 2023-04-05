@@ -1,6 +1,7 @@
 package controller;
 
 import domain.game.Bet;
+import domain.game.Bets;
 import domain.game.Blackjack;
 import domain.participant.Name;
 import domain.participant.Names;
@@ -21,18 +22,22 @@ public final class BlackjackController {
     }
 
     public void process() {
-        final Names names = Names.from(inputView.nameRequest());
-        final List<Bet> bets = calculateBets(names);
+        final Names names = requestNames();
+        final Bets bets = requestBets(names);
         final Blackjack blackjack = Blackjack.create(names, bets);
-
+        outputView.printInitialStatus(blackjack.getInitialStatus());
     }
 
-    private List<Bet> calculateBets(final Names names) {
-        final List<Bet> bets = new ArrayList<>();
+    private Names requestNames() {
+        return Names.from(inputView.requestNames());
+    }
+
+    private Bets requestBets(final Names names) {
+        final List<Bet> betList = new ArrayList<>();
         for (Name name : names.getNames()) {
-            final double value = inputView.betRequest(name.getName());
-            bets.add(Bet.of(value));
+            final double value = inputView.requestBet(name.getName());
+            betList.add(Bet.of(value));
         }
-        return bets;
+        return Bets.from(betList);
     }
 }
