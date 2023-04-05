@@ -3,7 +3,6 @@ package view;
 import domain.game.Hand;
 import domain.participant.Name;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -19,12 +18,20 @@ public final class OutputView {
 
         for (Map.Entry<Name, Hand> entry : initialStatus.entrySet()) {
             String name = entry.getKey().getName();
-            String strigifiedCards = entry.getValue().getCards()
-                    .stream()
-                    .map(CardTranslator::render)
-                    .collect(Collectors.joining(DELIMITER));
+            String strigifiedCards = stringifyCards(entry.getValue());
             println(String.format("%s : %s", name, strigifiedCards));
         }
+    }
+
+    public void printPlayerStatus(final String name, final Hand hand) {
+        println(String.format("%s의 카드 : %s", name, stringifyCards(hand)));
+    }
+
+    private static String stringifyCards(final Hand hand) {
+        return hand.getCards()
+                .stream()
+                .map(CardTranslator::render)
+                .collect(Collectors.joining(DELIMITER));
     }
 
     private void println(final String message) {

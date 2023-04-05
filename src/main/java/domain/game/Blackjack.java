@@ -49,6 +49,10 @@ public final class Blackjack {
         }
     }
 
+    public void letPlayerDraw(final Player player) {
+        player.take(deck.draw());
+    }
+
     public Map<Name, Hand> getInitialStatus() {
         Map<Name, Hand> result = new LinkedHashMap<>();
         result.put(dealer.getName(), dealer.getInitialHand());
@@ -56,5 +60,9 @@ public final class Blackjack {
             result.put(player.getName(), player.getHand());
         }
         return result;
+    }
+
+    public List<Player> getPlayers() {
+        return players.getPlayers();
     }
 }

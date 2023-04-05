@@ -30,6 +30,18 @@ public final class InputView {
         }
     }
 
+    public boolean requestDraw(final String name) {
+        println(String.format("%s는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)", name));
+        String input = readLine();
+        if (input.equals("y")) {
+            return true;
+        }
+        if (input.equals("n")) {
+            return false;
+        }
+        throw new IllegalArgumentException("y 또는 n을 입력하셔야 합니다.");
+    }
+
     private String readLine() {
         return scanner.nextLine();
     }

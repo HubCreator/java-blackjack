@@ -5,6 +5,7 @@ import domain.game.Bets;
 import domain.game.Blackjack;
 import domain.participant.Name;
 import domain.participant.Names;
+import domain.participant.Player;
 import view.InputView;
 import view.OutputView;
 
@@ -25,7 +26,8 @@ public final class BlackjackController {
         final Names names = requestNames();
         final Bets bets = requestBets(names);
         final Blackjack blackjack = Blackjack.create(names, bets);
-        outputView.printInitialStatus(blackjack.getInitialStatus());
+        printInitialStatus(blackjack);
+        requestDraw(blackjack);
     }
 
     private Names requestNames() {
@@ -39,5 +41,18 @@ public final class BlackjackController {
             betList.add(Bet.of(value));
         }
         return Bets.from(betList);
+    }
+
+    private void printInitialStatus(final Blackjack blackjack) {
+        outputView.printInitialStatus(blackjack.getInitialStatus());
+    }
+
+    private void requestDraw(final Blackjack blackjack) {
+        for (Player player : blackjack.getPlayers()) {
+            while (player.isHit() && inputView.requestDraw(player.name())) {
+                blackjack.letPlayerDraw(player);
+                outputView.printPlayerStatus(player.name(), player.getHand());
+            }
+        }
     }
 }

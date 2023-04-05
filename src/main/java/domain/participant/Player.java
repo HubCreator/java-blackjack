@@ -47,12 +47,20 @@ public final class Player {
         return hand.isBlackjack();
     }
 
+    public boolean isHit() {
+        return !isBusted() && !isBlackjack();
+    }
+
     public double score() {
         return hand.getScore();
     }
 
     public Name getName() {
         return name;
+    }
+
+    public String name() {
+        return name.getName();
     }
 
     public Hand getHand() {
