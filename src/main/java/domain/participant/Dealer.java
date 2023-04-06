@@ -17,7 +17,7 @@ public final class Dealer {
 
     private Dealer(final Name name) {
         this.name = name;
-        this.hand = Hand.from(Collections.emptyList());
+        this.hand = Hand.empty();
     }
 
     public static Dealer create() {

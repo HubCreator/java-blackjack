@@ -3,6 +3,7 @@ package domain.game;
 import domain.card.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class Hand {
@@ -22,6 +23,10 @@ public final class Hand {
 
     public static Hand from(final List<Card> cards) {
         return new Hand(cards);
+    }
+
+    public static Hand empty() {
+        return new Hand(Collections.emptyList());
     }
 
     public Hand take(final Card card) {
