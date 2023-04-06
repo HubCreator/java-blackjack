@@ -14,7 +14,7 @@ public final class Bet {
     public static Bet valueOf(final int bet) {
         validateBetUnit(bet);
         validateBetRange(bet);
-        validateNegative(bet);
+        validateZeroAndNegative(bet);
         return new Bet(bet);
     }
 
@@ -32,9 +32,9 @@ public final class Bet {
         }
     }
 
-    private static void validateNegative(final int bet) {
-        if (bet < 0) {
-            throw new IllegalArgumentException("베팅 금액으로 음수를 입력할 수 없습니다.");
+    private static void validateZeroAndNegative(final int bet) {
+        if (bet == 0 || bet < 0) {
+            throw new IllegalArgumentException("베팅 금액으로 0또는 음수를 입력할 수 없습니다.");
         }
     }
 
