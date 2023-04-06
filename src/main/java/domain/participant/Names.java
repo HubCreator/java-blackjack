@@ -24,11 +24,11 @@ public final class Names {
         final List<Name> result = Arrays.stream(input.split(DELIMITER))
                 .map(name -> Name.from(name.trim()))
                 .collect(Collectors.toList());
-        validateName(result);
+        validateNames(result);
         return result;
     }
 
-    private static void validateName(final List<Name> result) {
+    private static void validateNames(final List<Name> result) {
         if (result.stream().anyMatch(dealerName::equals)) {
             throw new IllegalArgumentException("참여자는 딜러라는 이름을 사용할 수 없습니다.");
         }

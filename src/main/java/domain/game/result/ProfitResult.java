@@ -42,7 +42,7 @@ public final class ProfitResult {
         return result;
     }
 
-    private static int getProfit(final Map.Entry<GameResult, List<Player>> entry) {
+    private int getProfit(final Map.Entry<GameResult, List<Player>> entry) {
         if (GameResult.LOSE == entry.getKey()) {
             return -entry.getValue().stream()
                     .mapToInt(GameResult.LOSE::calculateProfit)
@@ -51,7 +51,7 @@ public final class ProfitResult {
         return 0;
     }
 
-    private static int getLoss(final Map.Entry<GameResult, List<Player>> entry) {
+    private int getLoss(final Map.Entry<GameResult, List<Player>> entry) {
         if (GameResult.WIN == entry.getKey()) {
             return entry.getValue().stream()
                     .mapToInt(GameResult.WIN::calculateProfit)
