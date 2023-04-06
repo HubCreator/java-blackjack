@@ -24,22 +24,22 @@ public final class Players {
         }
     }
 
-    public List<Player> findPlayersLowerThan(final Score score) {
+    public List<Player> findPlayerGreaterThan(final Score score) {
         return players.stream()
-                .filter(player -> player.isLowerThan(score))
-                .collect(Collectors.toUnmodifiableList());
+                .filter(player -> player.isGreaterThan(score))
+                .collect(Collectors.toList());
     }
 
     public List<Player> findPlayerSameAs(final Score score) {
         return players.stream()
                 .filter(player -> player.isSameAs(score))
-                .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toList());
     }
 
-    public List<Player> findPlayerGreaterThan(final Score score) {
+    public List<Player> findPlayersLowerThan(final Score score) {
         return players.stream()
-                .filter(player -> player.isGreaterThan(score))
-                .collect(Collectors.toUnmodifiableList());
+                .filter(player -> player.isLowerThan(score))
+                .collect(Collectors.toList());
     }
 
     public List<Player> getPlayers() {

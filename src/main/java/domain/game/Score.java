@@ -52,6 +52,10 @@ public final class Score {
         return this.score > value.score;
     }
 
+    public Score plus(final int value) {
+        return Score.valueOf(score + value);
+    }
+
     public int getScore() {
         return score;
     }

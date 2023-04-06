@@ -13,17 +13,26 @@ public final class Hand {
     public static final int DEALER_STANDARD_NUMBER = 16;
     private static final Score BLACKJACK_SCORE = Score.valueOf(BLACKJACK_NUMBER);
     private static final Score DEALER_STANDARD_SCORE = Score.valueOf(DEALER_STANDARD_NUMBER);
+    public static final Score BUST_SCORE = Score.valueOf(0);
 
     private final List<Card> cards;
-    private final Score score;
+    private Score score;
 
     private Hand(final List<Card> cards) {
+        this(cards, Score.from(cards));
+    }
+
+    private Hand(final List<Card> cards, final Score score) {
         this.cards = cards;
-        this.score = Score.from(cards);
+        this.score = score;
     }
 
     public static Hand from(final List<Card> cards) {
         return new Hand(cards);
+    }
+
+    public static Hand of(final List<Card> cards, final Score score) {
+        return new Hand(cards, score);
     }
 
     public static Hand empty() {
@@ -33,11 +42,19 @@ public final class Hand {
     public Hand take(final Card card) {
         final ArrayList<Card> newCards = new ArrayList<>(cards);
         newCards.add(card);
+        Score result = score.plus(card.getNumberValue());
+        return checkBust(newCards, result);
+    }
+
+    private Hand checkBust(final ArrayList<Card> newCards, final Score result) {
+        if (result.isGreaterThan(BLACKJACK_SCORE)) {
+            return of(newCards, BUST_SCORE);
+        }
         return from(newCards);
     }
 
     public boolean isBusted() {
-        return score.isGreaterThan(BLACKJACK_SCORE);
+        return !cards.isEmpty() && score.isSameAs(BUST_SCORE);
     }
 
     public boolean isBlackjack() {

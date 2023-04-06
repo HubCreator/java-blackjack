@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public final class OutputView {
 
     public static final String DELIMITER = ", ";
-    private static final String FINAL_RESULT_FORMAT = "%s: %s";
+    private static final String FINAL_PROFIT_RESULT_FORMAT = "%s: %s";
 
     public void printInitialStatus(final Map<Name, List<Card>> handStatus) {
         lineSeparator();
@@ -54,8 +54,12 @@ public final class OutputView {
         for (Map.Entry<Name, List<Card>> entry : handStatus.entrySet()) {
             String name = entry.getKey().getName();
             String stringifiedCards = stringifyCards(entry.getValue());
-            Score score = scoreStatus.get(entry.getKey());
-            println(String.format("%s : %s - 결과: %d", name, stringifiedCards, score.getScore()));
+            int score = scoreStatus.get(entry.getKey()).getScore();
+            if (score == 0) {
+                println(String.format("%s : %s - 결과: %s", name, stringifiedCards, "버스트"));
+                continue;
+            }
+            println(String.format("%s : %s - 결과: %d", name, stringifiedCards, score));
         }
     }
 
@@ -69,7 +73,7 @@ public final class OutputView {
     private void printDealerResult(final String dealerName, final ProfitResult profitResult) {
         println(
                 String.format(
-                        FINAL_RESULT_FORMAT,
+                        FINAL_PROFIT_RESULT_FORMAT,
                         dealerName,
                         profitResult.getDealerProfit())
         );
@@ -86,7 +90,7 @@ public final class OutputView {
         for (Player player : players) {
             println(
                     String.format(
-                            FINAL_RESULT_FORMAT,
+                            FINAL_PROFIT_RESULT_FORMAT,
                             player.getNameValue(),
                             entry.getKey().calculateProfit(player)
                     )
