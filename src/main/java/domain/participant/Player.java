@@ -6,7 +6,6 @@ import domain.game.Bet;
 import domain.game.Hand;
 import domain.game.Score;
 
-import java.util.Collections;
 import java.util.List;
 
 public final class Player {

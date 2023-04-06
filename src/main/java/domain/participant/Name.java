@@ -12,7 +12,7 @@ public final class Name {
         this.name = name;
     }
 
-    public static Name of(final String name) {
+    public static Name from(final String name) {
         validateName(Objects.requireNonNull(name));
         return new Name(name);
     }

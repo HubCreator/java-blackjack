@@ -17,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @SuppressWarnings("NonAsciiCharacters")
 class PlayerTest {
 
-    private Player player = Player.of(Name.of("hi"), Bet.valueOf(1000));
+    private Player player = Player.of(Name.from("hi"), Bet.valueOf(1000));
 
     @Test
     void 플레이어를_생성한다() {
-        assertDoesNotThrow(() -> Player.of(Name.of("hi"), Bet.valueOf(1000)));
+        assertDoesNotThrow(() -> Player.of(Name.from("hi"), Bet.valueOf(1000)));
     }
 
     @Test

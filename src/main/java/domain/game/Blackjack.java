@@ -61,7 +61,7 @@ public final class Blackjack {
     }
 
     public int finalizeDealerTurn() {
-        return dealer.finalizeTurn(deck);
+        return dealer.finalizeTurnAndGetCardCount(deck);
     }
 
     public Map<Name, List<Card>> getFinalStatus() {

@@ -24,10 +24,10 @@ class NamesTest {
 
         // then
         assertThat(nameList).containsExactly(
-                Name.of("hello"),
-                Name.of("world"),
-                Name.of("hi"),
-                Name.of("hey")
+                Name.from("hello"),
+                Name.from("world"),
+                Name.from("hi"),
+                Name.from("hey")
         );
     }
 

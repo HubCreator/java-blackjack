@@ -5,8 +5,6 @@ import domain.card.Deck;
 import domain.game.Hand;
 import domain.game.Score;
 
-import java.util.Collections;
-
 public final class Dealer {
 
     private static final int FIRST_CARD_INDEX = 0;
@@ -21,7 +19,7 @@ public final class Dealer {
     }
 
     public static Dealer create() {
-        return new Dealer(Name.of(DEALER_NAME));
+        return new Dealer(Name.from(DEALER_NAME));
     }
 
     private void validateHit() {
@@ -64,7 +62,7 @@ public final class Dealer {
         return hand.isBlackjack();
     }
 
-    public int finalizeTurn(final Deck deck) {
+    public int finalizeTurnAndGetCardCount(final Deck deck) {
         int count = 0;
         if (!isOverDealerStandard()) {
             hand = hand.take(deck.draw());

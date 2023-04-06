@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public final class Names {
 
     private static final String DELIMITER = ",";
-    private static final Name dealerName = Name.of(Dealer.DEALER_NAME);
+    private static final Name dealerName = Name.from(Dealer.DEALER_NAME);
 
     private final List<Name> names;
 
@@ -22,7 +22,7 @@ public final class Names {
 
     private static List<Name> validateAndCovert(final String input) {
         final List<Name> result = Arrays.stream(input.split(DELIMITER))
-                .map(name -> Name.of(name.trim()))
+                .map(name -> Name.from(name.trim()))
                 .collect(Collectors.toList());
         validateName(result);
         return result;
