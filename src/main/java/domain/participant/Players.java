@@ -20,9 +20,7 @@ public final class Players {
 
     public void take(final Deck deck, final int count) {
         for (Player player : players) {
-            for (int i = 0; i < count; i++) {
-                player.take(deck.draw());
-            }
+            player.take(deck, count);
         }
     }
 

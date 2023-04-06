@@ -43,9 +43,7 @@ public final class Blackjack {
     }
 
     private void init() {
-        for (Player player : players.getPlayers()) {
-            player.take(deck, INITIAL_CARD_COUNT);
-        }
+        players.take(deck, INITIAL_CARD_COUNT);
         dealer.take(deck, INITIAL_CARD_COUNT);
     }
 

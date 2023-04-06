@@ -38,11 +38,6 @@ public final class Dealer {
         }
     }
 
-    public void take(final Card card) {
-        validateHit();
-        hand = hand.take(card);
-    }
-
     public void take(final Card... cards) {
         for (Card card : cards) {
             validateHit();
