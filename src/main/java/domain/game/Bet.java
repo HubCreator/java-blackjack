@@ -2,8 +2,8 @@ package domain.game;
 
 public final class Bet {
 
-    public static final int MIN_UNIT = 1_000;
-    public static final int MAX_RANGE = 1_000_000_000;
+    private static final int MIN_UNIT = 1_000;
+    private static final int MAX_RANGE = 1_000_000_000;
 
     private final int bet;
 
@@ -11,7 +11,7 @@ public final class Bet {
         this.bet = bet;
     }
 
-    public static Bet of(final int bet) {
+    public static Bet valueOf(final int bet) {
         validateBetUnit(bet);
         validateBetRange(bet);
         validateNegative(bet);

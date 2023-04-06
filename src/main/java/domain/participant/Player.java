@@ -18,7 +18,7 @@ public final class Player {
     private Player(final Name name, final Bet bet) {
         this.name = name;
         this.bet = bet;
-        this.hand = Hand.of(Collections.emptyList());
+        this.hand = Hand.from(Collections.emptyList());
     }
 
     public static Player of(final Name name, final Bet bet) {

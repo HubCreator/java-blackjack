@@ -26,7 +26,7 @@ class HandTest {
                 Card.of(Suit.HEART, Number.EIGHT),
                 Card.of(Suit.CLOVER, Number.TWO)
         );
-        hand = Hand.of(cards);
+        hand = Hand.from(cards);
     }
 
     @Test
@@ -48,7 +48,7 @@ class HandTest {
         final Hand newHand = hand.take(Card.of(Suit.SPADE, Number.ACE));
 
         // then
-        assertThat(newHand.getScore()).isEqualTo(Score.of(21));
+        assertThat(newHand.getScore()).isEqualTo(Score.valueOf(21));
     }
 
     @Test
@@ -58,7 +58,7 @@ class HandTest {
         final Hand newHand2 = newHand1.take(Card.of(Suit.SPADE, Number.ACE));
 
         // then
-        assertThat(newHand2.getScore()).isEqualTo(Score.of(16));
+        assertThat(newHand2.getScore()).isEqualTo(Score.valueOf(16));
     }
 
     @Test
@@ -70,9 +70,9 @@ class HandTest {
         }
 
         // when
-        final Hand hand = Hand.of(cards);
+        final Hand hand = Hand.from(cards);
 
         // then
-        assertThat(hand.getScore()).isEqualTo(Score.of(21));
+        assertThat(hand.getScore()).isEqualTo(Score.valueOf(21));
     }
 }

@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public final class Dealer {
 
-    public static final int FIRST_CARD_INDEX = 0;
+    private static final int FIRST_CARD_INDEX = 0;
     public static final String DEALER_NAME = "딜러";
 
     private final Name name;
@@ -17,7 +17,7 @@ public final class Dealer {
 
     private Dealer(final Name name) {
         this.name = name;
-        this.hand = Hand.of(Collections.emptyList());
+        this.hand = Hand.from(Collections.emptyList());
     }
 
     public static Dealer create() {

@@ -31,7 +31,7 @@ class DealerTest {
                 Card.of(Suit.SPADE, Number.THREE)
         );
 
-        assertThat(dealer.getScore()).isEqualTo(Score.of(16));
+        assertThat(dealer.getScore()).isEqualTo(Score.valueOf(16));
     }
 
     @Test

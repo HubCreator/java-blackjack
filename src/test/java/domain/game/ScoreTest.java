@@ -27,7 +27,7 @@ class ScoreTest {
         final Score score = Score.from(cards);
 
         // then
-        assertThat(score.isSameAs(Score.of(10))).isTrue();
+        assertThat(score.isSameAs(Score.valueOf(10))).isTrue();
     }
 
     @Test
@@ -42,6 +42,6 @@ class ScoreTest {
         final Score score = Score.from(cards);
 
         // then
-        assertThat(score.isSameAs(Score.of(13))).isTrue();
+        assertThat(score.isSameAs(Score.valueOf(13))).isTrue();
     }
 }

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public final class Name {
 
-    public static final int MAX_LENGTH = 5;
+    private static final int MAX_LENGTH = 5;
 
     private final String name;
 
@@ -13,7 +13,7 @@ public final class Name {
     }
 
     public static Name of(final String name) {
-        validateName(name);
+        validateName(Objects.requireNonNull(name));
         return new Name(name);
     }
 

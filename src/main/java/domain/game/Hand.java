@@ -9,8 +9,8 @@ public final class Hand {
 
     public static final int BLACKJACK_NUMBER = 21;
     public static final int DEALER_STANDARD_NUMBER = 16;
-    public static final Score BLACKJACK_SCORE = Score.of(BLACKJACK_NUMBER);
-    public static final Score DEALER_STANDARD_SCORE = Score.of(DEALER_STANDARD_NUMBER);
+    public static final Score BLACKJACK_SCORE = Score.valueOf(BLACKJACK_NUMBER);
+    public static final Score DEALER_STANDARD_SCORE = Score.valueOf(DEALER_STANDARD_NUMBER);
 
     private final List<Card> cards;
     private final Score score;
@@ -20,14 +20,14 @@ public final class Hand {
         this.score = Score.from(cards);
     }
 
-    public static Hand of(final List<Card> cards) {
+    public static Hand from(final List<Card> cards) {
         return new Hand(cards);
     }
 
     public Hand take(final Card card) {
         final ArrayList<Card> newCards = new ArrayList<>(cards);
         newCards.add(card);
-        return of(newCards);
+        return from(newCards);
     }
 
     public boolean isBusted() {

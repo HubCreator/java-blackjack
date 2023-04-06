@@ -17,7 +17,7 @@ public final class Score {
         return new Score(optimizeScore(cards));
     }
 
-    public static Score of(final int score) {
+    public static Score valueOf(final int score) {
         return new Score(score);
     }
 

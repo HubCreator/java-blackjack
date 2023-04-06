@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 
 public final class Blackjack {
 
-    public static final int INITIAL_CARD_COUNT = 2;
+    private static final int INITIAL_CARD_COUNT = 2;
 
     private final Players players;
     private final Dealer dealer;
@@ -30,7 +30,7 @@ public final class Blackjack {
         init();
     }
 
-    public static Blackjack create(final Names names, final Bets bets) {
+    public static Blackjack of(final Names names, final Bets bets) {
         if (names.size() != bets.size()) {
             throw new IllegalArgumentException("플레이어의 수와 베팅 금액의 수가 일치하지 않습니다.");
         }
