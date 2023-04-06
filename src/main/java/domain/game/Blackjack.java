@@ -60,7 +60,7 @@ public final class Blackjack {
         player.take(deck.draw());
     }
 
-    public int finalizeDealerTurn() {
+    public int finalizeTurnAndGetCardCount() {
         return dealer.finalizeTurnAndGetCardCount(deck);
     }
 

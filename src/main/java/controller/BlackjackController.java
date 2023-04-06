@@ -71,7 +71,7 @@ public final class BlackjackController {
     }
 
     private void letDealerDraw(final Blackjack blackjack) {
-        int dealerDrawCount = blackjack.finalizeDealerTurn();
+        int dealerDrawCount = blackjack.finalizeTurnAndGetCardCount();
         outputView.printDealerDrawCount(blackjack.getDealerName(), dealerDrawCount);
     }
 
