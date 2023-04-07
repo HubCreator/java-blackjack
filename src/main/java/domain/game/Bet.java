@@ -1,60 +1,44 @@
 package domain.game;
 
-import java.text.MessageFormat;
-import java.util.Objects;
-
 public final class Bet {
 
-    public static final int MAX = 100_000_000;
-    public static final double BONUS_RATE = 1.5;
+    private static final int MIN_UNIT = 1_000;
+    private static final int MAX_RANGE = 1_000_000_000;
 
-    private final double bet;
+    private final int bet;
 
-    private Bet(final double bet) {
-        validatePrice(bet);
+    public Bet(final int bet) {
         this.bet = bet;
     }
 
-    public static Bet of(final double bet) {
+    public static Bet valueOf(final int bet) {
+        validateBetUnit(bet);
+        validateBetRange(bet);
+        validateZeroAndNegative(bet);
         return new Bet(bet);
     }
 
-    private void validatePrice(final double bet) {
-        if (bet > MAX) {
+    private static void validateBetUnit(final int bet) {
+        if (bet % MIN_UNIT != 0) {
             throw new IllegalArgumentException(
-                    MessageFormat.format(
-                            "{0}초과의 베팅은 할 수 없습니다.",
-                            MAX
-                    )
+                    String.format("베팅 금액은 %d원 단위여야 합니다.", MIN_UNIT)
             );
         }
     }
 
-    public double getBet() {
+    private static void validateBetRange(final int bet) {
+        if (bet > MAX_RANGE) {
+            throw new IllegalArgumentException("베팅 유효 범위를 초과하셨습니다.");
+        }
+    }
+
+    private static void validateZeroAndNegative(final int bet) {
+        if (bet == 0 || bet < 0) {
+            throw new IllegalArgumentException("베팅 금액으로 0또는 음수를 입력할 수 없습니다.");
+        }
+    }
+
+    public int getBet() {
         return bet;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final Bet bet1 = (Bet) o;
-        return bet == bet1.bet;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bet);
-    }
-
-    @Override
-    public String toString() {
-        return "Bet{" +
-                "bet=" + bet +
-                '}';
     }
 }

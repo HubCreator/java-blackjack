@@ -1,50 +1,45 @@
 package domain.participant;
 
-import domain.deck.DeckStrategy;
+import domain.card.Deck;
+import domain.game.Score;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public final class Players {
-
-    public static final int MIN_COUNT = 1;
 
     private final List<Player> players;
 
     private Players(final List<Player> players) {
-        this.players = new ArrayList<>(players);
+        this.players = players;
     }
 
-    public static Players create(final List<Name> names, final List<Integer> bets) {
-        validatePlayersCount(names);
-        validateDuplicateName(names);
-        final List<Player> players = IntStream.range(0, names.size())
-                .mapToObj(index -> Player.of(names.get(index), bets.get(index)))
-                .collect(Collectors.toList());
-
+    public static Players from(final List<Player> players) {
         return new Players(players);
     }
 
-    private static void validatePlayersCount(final List<Name> names) {
-        if (names.size() < MIN_COUNT) {
-            throw new IllegalArgumentException(
-                    String.format("%d명 이상일 때 게임을 실행할 수 있습니다.", MIN_COUNT));
-        }
-    }
-
-    private static void validateDuplicateName(final List<Name> names) {
-        if (names.size() != new HashSet<>(names).size()) {
-            throw new IllegalArgumentException("중복된 이름은 사용할 수 없습니다.");
-        }
-    }
-
-    public void takeCards(final DeckStrategy deck, final int count) {
+    public void take(final Deck deck, final int count) {
         for (Player player : players) {
-            player.takeInitialCards(deck, count);
+            player.take(deck, count);
         }
+    }
+
+    public List<Player> findPlayerGreaterThan(final Score score) {
+        return players.stream()
+                .filter(player -> player.isGreaterThan(score))
+                .collect(Collectors.toList());
+    }
+
+    public List<Player> findPlayerSameAs(final Score score) {
+        return players.stream()
+                .filter(player -> player.isSameAs(score))
+                .collect(Collectors.toList());
+    }
+
+    public List<Player> findPlayersLowerThan(final Score score) {
+        return players.stream()
+                .filter(player -> player.isLowerThan(score))
+                .collect(Collectors.toList());
     }
 
     public List<Player> getPlayers() {

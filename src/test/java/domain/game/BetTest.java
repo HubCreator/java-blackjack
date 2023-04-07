@@ -1,65 +1,30 @@
 package domain.game;
 
-import domain.participant.Dealer;
-import domain.participant.Name;
-import domain.participant.Player;
-import domain.participant.Players;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@SuppressWarnings("NonAsciiCharacters")
 class BetTest {
 
-    @DisplayName("100,000,000이하의 배팅 금액은 허용된다.")
     @ParameterizedTest
-    @ValueSource(ints = {99_999_999, 100_000_000})
-    void validBet(int value) {
-        assertDoesNotThrow(() -> Bet.of(value));
+    @ValueSource(ints = {1000, 2000, 10000, 15000})
+    void 베팅_금액은_천원_단위로_입력받을_수_있다(int bet) {
+        assertDoesNotThrow(() -> Bet.valueOf(bet));
     }
 
-    @DisplayName("100,000,000초과의 배팅 금액은 예외가 발생한다.")
-    @Test
-    void invalidBet() {
-        assertThatThrownBy(() -> Bet.of(100_000_001))
+    @ParameterizedTest
+    @ValueSource(ints = {1001, 99, 100, 1002})
+    void 베팅_금액은_천원_단위가_아니면_예외가_발생한다(int bet) {
+
+        assertThatThrownBy(() -> Bet.valueOf(bet))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("100,000,000초과의 베팅은 할 수 없습니다.");
+                .hasMessage("베팅 금액은 1000원 단위여야 합니다.");
     }
 
-    @Nested
-    class BetDealerPlayersTest {
-        private BlackjackGame blackjackGame;
-        private Player player1;
-        private Player player2;
-        private Dealer dealer;
-
-        @BeforeEach
-        void init() {
-            final List<Name> names = List.of(Name.of("a"), Name.of("b"));
-            final List<Integer> bets = List.of(1000, 2000);
-            blackjackGame = BlackjackGame.getInstance(names, bets, new TestDeckForThreeParticipant());
-
-            final Players players = blackjackGame.getPlayers();
-            final List<Player> playerList = players.getPlayers();
-            player1 = playerList.get(0);
-            player2 = playerList.get(1);
-            dealer = blackjackGame.getDealer();
-        }
-
-        @DisplayName("플레이어들은 각각 배팅 금액을 가지고 있다.")
-        @Test
-        void playerBetTest() {
-            assertThat(player1.getBet()).isEqualTo(1000);
-            assertThat(player2.getBet()).isEqualTo(2000);
-        }
-    }
 }

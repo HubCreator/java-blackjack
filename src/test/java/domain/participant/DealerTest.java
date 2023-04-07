@@ -1,38 +1,69 @@
 package domain.participant;
 
 import domain.card.Card;
-import domain.card.CardNumber;
-import domain.card.CardShape;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import domain.card.Number;
+import domain.card.Suit;
+import domain.game.Score;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@SuppressWarnings("NonAsciiCharacters")
 class DealerTest {
 
-    private Dealer dealer;
+    private Dealer dealer = Dealer.create();
 
-    @BeforeEach
-    void init() {
-        dealer = Dealer.create();
-    }
-
-    @DisplayName("딜러의 이름은 '딜러'다.")
     @Test
-    void dealerName() {
-        assertThat(dealer.getName()).isEqualTo("딜러");
+    void 딜러를_생성한다() {
+        assertDoesNotThrow(Dealer::create);
     }
 
-    @DisplayName("딜러는 자신이 가진 카드의 점수 합을 구할 수 있다.")
     @Test
-    void calculateGamePoint() {
-        for (int i = 0; i < 12; i++) {
-            dealer.takeCard(Card.of(CardShape.HEART, CardNumber.of(1)));
-        }
-        assertThat(dealer.getGamePoint())
-                .extracting("gamePoint")
-                .isSameAs(12);
+    void 딜러는_카드를_받을_수_있다() {
+        dealer.take(
+                Card.of(Suit.SPADE, Number.ACE),
+                Card.of(Suit.SPADE, Number.TWO),
+                Card.of(Suit.SPADE, Number.THREE)
+        );
+
+        assertThat(dealer.getScore()).isEqualTo(Score.valueOf(16));
     }
 
+    @Test
+    void 딜러의_초기_카드의_합이_16_이하라면_한_장을_더_받을_수_있다() {
+        dealer.take(
+                Card.of(Suit.SPADE, Number.ACE),
+                Card.of(Suit.SPADE, Number.TWO)
+        );
+
+        assertDoesNotThrow(() -> dealer.take(Card.of(Suit.CLOVER, Number.THREE)));
+    }
+
+    @Test
+    void 딜러의_초기_카드의_합이_17_이상인데_한_장을_더_받으면_예외가_발생한다() {
+        dealer.take(
+                Card.of(Suit.SPADE, Number.ACE),
+                Card.of(Suit.SPADE, Number.SIX)
+        );
+
+        assertThatThrownBy(() -> dealer.take(Card.of(Suit.CLOVER, Number.THREE)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("점수가 16점 초과면 더 이상 카드를 뽑을 수 없습니다.");
+    }
+
+    @Test
+    void 블랙잭_상태인데_카드를_뽑으면_예외가_발생한다() {
+        dealer.take(
+                Card.of(Suit.HEART, Number.ACE),
+                Card.of(Suit.HEART, Number.JACK)
+        );
+        assertThatThrownBy(() -> dealer.take(Card.of(Suit.CLOVER, Number.EIGHT)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("블랙잭 상태에서는 더이상 카드를 뽑을 수 없습니다.");
+    }
 }

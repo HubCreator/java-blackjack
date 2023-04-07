@@ -1,16 +1,8 @@
 package view;
 
-import domain.participant.Name;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public final class InputView {
-
-    private static final String YES = "y";
-    private static final String NO = "n";
 
     private final Scanner scanner;
 
@@ -18,49 +10,48 @@ public final class InputView {
         this.scanner = scanner;
     }
 
-    public List<String> userNameRequest() {
-        System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
-        return Arrays.stream(readLine().split(","))
-                .collect(Collectors.toList());
+    public String requestNames() {
+        println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
+        return readLine().trim();
     }
 
-    public Integer betRequest(final Name name) {
-        System.out.printf("%s의 배팅 금액은?\n", name.getValue());
-        return toNumber(readLine());
+    public int requestBet(final String playerName) {
+        lineSeparator();
+        println(String.format("%s의 베팅 금액은?", playerName));
+        return toNumber(readLine().trim());
     }
 
-    private Integer toNumber(final String input) {
+    private int toNumber(final String price) {
         try {
-            return Integer.parseInt(input);
+            return Integer.parseInt(price);
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException("숫자를 입력해야 합니다.", exception);
         }
     }
 
-    public boolean cardRequest(final String name) {
-        System.out.printf(
-                "%s는 한 장의 카드를 더 받겠습니까?(예는 %s, 아니오는 %s)\n",
-                name
-                , YES, NO
-        );
-        return validateInputAndGet(readLine());
-    }
-
-    private boolean validateInputAndGet(final String input) {
-        if (input.equals(YES)) {
+    public boolean requestDraw(final String name) {
+        lineSeparator();
+        println(String.format("%s는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)", name));
+        String input = readLine().trim();
+        if (input.equals("y")) {
             return true;
         }
-        if (input.equals(NO)) {
+        if (input.equals("n")) {
             return false;
         }
-        throw new IllegalArgumentException(
-                String.format("%s 또는 %s만 입력 가능합니다.", YES, NO)
-        );
+        throw new IllegalArgumentException("y 또는 n을 입력하셔야 합니다.");
     }
 
     private String readLine() {
         return scanner.nextLine();
     }
 
+    private void println(final String message) {
+        System.out.print(message);
+        lineSeparator();
+    }
 
+    private void lineSeparator() {
+        System.out.print(System.lineSeparator());
+    }
 }

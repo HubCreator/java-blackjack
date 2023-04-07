@@ -1,45 +1,70 @@
 package domain.participant;
 
 import domain.card.Card;
-import domain.card.CardNumber;
-import domain.card.CardShape;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import domain.card.Number;
+import domain.card.Suit;
+import domain.game.Bet;
+import domain.game.Score;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@SuppressWarnings("NonAsciiCharacters")
 class PlayerTest {
 
-    private List<Card> initialData;
-    private Player player;
+    private Player player = Player.of(Name.from("hi"), Bet.valueOf(1000));
 
-    @BeforeEach
-    void init() {
-        initialData = List.of(Card.of(CardShape.HEART, CardNumber.of(1)),
-                Card.of(CardShape.HEART, CardNumber.of(2)));
-        player = Player.create(Name.of("HK"), initialData, 10_000);
+    @Test
+    void 플레이어를_생성한다() {
+        assertDoesNotThrow(() -> Player.of(Name.from("hi"), Bet.valueOf(1000)));
     }
 
-    @DisplayName("플레이어는 '딜러'라는 이름을 가지면 예외가 발생한다.")
     @Test
-    void invalidNameTest() {
-        assertThatThrownBy(() -> Player.of(Name.of("딜러"), 10_000))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("'딜러'라는 이름을 가질 수 없습니다.");
+    void 플레이어는_카드를_받을_수_있다() {
+        player.take(
+                Card.of(Suit.SPADE, Number.ACE),
+                Card.of(Suit.SPADE, Number.TWO),
+                Card.of(Suit.SPADE, Number.THREE)
+        );
+        assertThat(player.getScore()).isEqualTo(Score.valueOf(16));
     }
 
-    @DisplayName("플레이어는 자신이 가진 카드의 점수 합을 구할 수 있다.")
     @Test
-    void calculateGamePoint() {
-        for (int i = 0; i < 12; i++) {
-            player.takeCard(Card.of(CardShape.HEART, CardNumber.of(1)));
-        }
-        assertThat(player.getGamePoint())
-                .extracting("gamePoint")
-                .isSameAs(15);
+    void 플레이어는_버스트라면_ACE를_1로_간주할_수_있다() {
+        player.take(
+                Card.of(Suit.SPADE, Number.ACE),
+                Card.of(Suit.SPADE, Number.TWO),
+                Card.of(Suit.SPADE, Number.THREE),
+                Card.of(Suit.HEART, Number.JACK)
+        );
+        assertThat(player.getScore()).isEqualTo(Score.valueOf(16));
+    }
+
+    @Test
+    void 버스트_상태인데_카드를_뽑으면_예외가_발생한다() {
+        player.take(
+                Card.of(Suit.HEART, Number.JACK),
+                Card.of(Suit.HEART, Number.JACK),
+                Card.of(Suit.HEART, Number.JACK)
+        );
+        assertThatThrownBy(() -> player.take(Card.of(Suit.CLOVER, Number.EIGHT)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("버스트 상태에서는 더이상 카드를 뽑을 수 없습니다.");
+    }
+
+    @Test
+    void 블랙잭_상태인데_카드를_뽑으면_예외가_발생한다() {
+        player.take(
+                Card.of(Suit.HEART, Number.ACE),
+                Card.of(Suit.HEART, Number.JACK)
+        );
+        assertThatThrownBy(() -> player.take(Card.of(Suit.CLOVER, Number.EIGHT)))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("블랙잭 상태에서는 더이상 카드를 뽑을 수 없습니다.");
     }
 }

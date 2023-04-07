@@ -4,40 +4,37 @@ import java.util.Objects;
 
 public final class Card {
 
-    private final CardShape cardShape;
-    private final CardNumber cardNumber;
+    private final Suit suit;
+    private final Number number;
 
-    private Card(final CardShape cardShape, final CardNumber cardNumber) {
-        this.cardShape = cardShape;
-        this.cardNumber = cardNumber;
+    private Card(final Suit suit, final Number number) {
+        this.suit = suit;
+        this.number = number;
     }
 
-    public static Card of(final CardShape cardShape, final CardNumber cardNumber) {
-        return new Card(cardShape, cardNumber);
+    public static Card of(final Suit suit, final Number value) {
+        return new Card(suit, value);
     }
 
-    public static Card of(final Card card) {
-        return new Card(card.cardShape, card.cardNumber);
+    public boolean isAce() {
+        return number == Number.ACE;
     }
 
-    public boolean isSameAs(int value) {
-        return cardNumber.getValue() == value;
+    public Number getNumber() {
+        return number;
     }
 
-    public boolean isOver(final int value) {
-        return cardNumber.getValue() > value;
+    public int getNumberValue() {
+        return number.getValue();
     }
 
-    public int getCardNumberValue() {
-        return cardNumber.getValue();
-    }
-
-    public CardShape getShape() {
-        return cardShape;
+    public Suit getSuit() {
+        return suit;
     }
 
     @Override
     public boolean equals(final Object o) {
+
         if (this == o) {
             return true;
         }
@@ -45,19 +42,11 @@ public final class Card {
             return false;
         }
         final Card card = (Card) o;
-        return cardShape == card.cardShape && Objects.equals(cardNumber, card.cardNumber);
+        return suit == card.suit && number == card.number;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cardShape, cardNumber);
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "cardShape=" + cardShape +
-                ", cardNumber=" + cardNumber +
-                '}';
+        return Objects.hash(suit, number);
     }
 }

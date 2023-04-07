@@ -1,8 +1,8 @@
 package domain.card;
 
-public enum CardShape {
+public enum Suit {
     HEART,
     DIAMOND,
-    SPADE,
-    CLOVER
+    CLOVER,
+    SPADE
 }

@@ -4,31 +4,32 @@ import java.util.Objects;
 
 public final class Name {
 
-    private static final int MIN = 1;
-    private static final int MAX = 5;
+    private static final int MAX_LENGTH = 5;
 
-    private final String value;
+    private final String name;
 
-    private Name(final String value) {
-        final String trimmedValue = value.trim();
-        validateLength(trimmedValue);
-        this.value = trimmedValue;
+    private Name(final String name) {
+        this.name = name;
     }
 
-    public static Name of(final String value) {
-        return new Name(value);
+    public static Name from(final String name) {
+        validateName(Objects.requireNonNull(name));
+        return new Name(name);
     }
 
-    private void validateLength(final String value) {
-        if (value.length() > MAX || value.length() < MIN) {
+    private static void validateName(final String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("이름은 빈 칸일 수 없습니다.");
+        }
+        if (name.length() > MAX_LENGTH) {
             throw new IllegalArgumentException(
-                    String.format("이름은 %d~%d 글자만 허용합니다.", MIN, MAX)
+                    String.format("이름의 길이는 %d글자 이하여야 합니다.", MAX_LENGTH)
             );
         }
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -39,12 +40,12 @@ public final class Name {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final Name name = (Name) o;
-        return Objects.equals(value, name.value);
+        final Name otherName = (Name) o;
+        return Objects.equals(name, otherName.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(name);
     }
 }
