@@ -8,7 +8,7 @@ public enum GameResult {
         @Override
         public int calculateProfit(final Player player) {
             if (player.isBlackjack()) {
-                return (int) (PROFIT_RATE * player.getBetValue());
+                return (int) (BLACKJACK_PROFIT_RATE * player.getBetValue());
             }
             return player.getBetValue();
         }
@@ -29,7 +29,7 @@ public enum GameResult {
         }
     };
 
-    public static final double PROFIT_RATE = 1.5;
+    public static final double BLACKJACK_PROFIT_RATE = 1.5;
 
     public abstract int calculateProfit(final Player player);
 }

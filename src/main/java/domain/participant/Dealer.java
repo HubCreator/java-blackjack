@@ -37,6 +37,9 @@ public final class Dealer {
     }
 
     public void take(final Card... cards) {
+        if (cards.length == 0) {
+            throw new UnsupportedOperationException();
+        }
         for (Card card : cards) {
             validateHit();
             hand = hand.take(card);

@@ -20,7 +20,7 @@ public final class ProfitResult {
         updateGameResult(GameResult.WIN, players.findPlayerGreaterThan(dealerScore));
         updateGameResult(GameResult.DRAW, players.findPlayerSameAs(dealerScore));
         updateGameResult(GameResult.LOSE, players.findPlayersLowerThan(dealerScore));
-        this.dealerProfit = updateDealerProfit();
+        this.dealerProfit = calculateDealerProfit();
     }
 
     public static ProfitResult of(final Dealer dealer, final Players players) {
@@ -33,31 +33,12 @@ public final class ProfitResult {
         }
     }
 
-    private int updateDealerProfit() {
-        int result = 0;
-        for (Map.Entry<GameResult, List<Player>> entry : playerResult.entrySet()) {
-            result += getProfit(entry);
-            result -= getLoss(entry);
-        }
-        return result;
-    }
-
-    private int getProfit(final Map.Entry<GameResult, List<Player>> entry) {
-        if (GameResult.LOSE == entry.getKey()) {
-            return -entry.getValue().stream()
-                    .mapToInt(GameResult.LOSE::calculateProfit)
-                    .sum();
-        }
-        return 0;
-    }
-
-    private int getLoss(final Map.Entry<GameResult, List<Player>> entry) {
-        if (GameResult.WIN == entry.getKey()) {
-            return entry.getValue().stream()
-                    .mapToInt(GameResult.WIN::calculateProfit)
-                    .sum();
-        }
-        return 0;
+    private int calculateDealerProfit() {
+        return -1 * playerResult.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream()
+                        .map(player -> entry.getKey().calculateProfit(player)))
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public Map<GameResult, List<Player>> getResult() {

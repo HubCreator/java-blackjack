@@ -67,7 +67,7 @@ public final class OutputView {
         lineSeparator();
         println("## 최종 수익");
         printDealerResult(dealerName, profitResult);
-        printPlayersResult(profitResult.getResult());
+            printPlayersResult(profitResult.getResult());
     }
 
     private void printDealerResult(final String dealerName, final ProfitResult profitResult) {

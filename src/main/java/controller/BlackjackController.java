@@ -35,8 +35,8 @@ public final class BlackjackController {
     }
 
     private Blackjack initBlackjack() {
-        final Names names = repeat(this::requestNames);
-        final Bets bets = repeat(() -> requestBets(names));
+        final Names names = requestNames();
+        final Bets bets = requestBets(names);
         return Blackjack.of(names, bets);
     }
 
@@ -47,10 +47,14 @@ public final class BlackjackController {
     private Bets requestBets(final Names names) {
         final List<Bet> betList = new ArrayList<>();
         for (Name name : names.getNames()) {
-            final int value = repeat(() -> inputView.requestBet(name.getName()));
-            betList.add(Bet.valueOf(value));
+            betList.add(repeat(() -> requestBet(name)));
         }
         return Bets.from(betList);
+    }
+
+    private Bet requestBet(final Name name) {
+        final int inputBet = inputView.requestBet(name.getName());
+        return Bet.valueOf(inputBet);
     }
 
     private void printInitialStatus(final Blackjack blackjack) {

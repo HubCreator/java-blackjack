@@ -11,9 +11,10 @@ public final class Hand {
     private static final int BLACKJACK_CARD_COUNT = 2;
     public static final int BLACKJACK_NUMBER = 21;
     public static final int DEALER_STANDARD_NUMBER = 16;
+    public static final int BUST_NUMBER = 0;
     private static final Score BLACKJACK_SCORE = Score.valueOf(BLACKJACK_NUMBER);
     private static final Score DEALER_STANDARD_SCORE = Score.valueOf(DEALER_STANDARD_NUMBER);
-    public static final Score BUST_SCORE = Score.valueOf(0);
+    public static final Score BUST_SCORE = Score.valueOf(BUST_NUMBER);
 
     private final List<Card> cards;
     private Score score;
@@ -40,13 +41,13 @@ public final class Hand {
     }
 
     public Hand take(final Card card) {
-        final ArrayList<Card> newCards = new ArrayList<>(cards);
+        final List<Card> newCards = new ArrayList<>(cards);
         newCards.add(card);
         Score result = score.plus(card.getNumberValue());
         return checkBust(newCards, result);
     }
 
-    private Hand checkBust(final ArrayList<Card> newCards, final Score result) {
+    private Hand checkBust(final List<Card> newCards, final Score result) {
         if (result.isGreaterThan(BLACKJACK_SCORE)) {
             return of(newCards, BUST_SCORE);
         }
