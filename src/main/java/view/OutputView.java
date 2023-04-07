@@ -64,10 +64,12 @@ public final class OutputView {
     }
 
     public void printProfit(final String dealerName, final ProfitResult profitResult) {
+        final Map<GameResult, List<Player>> result = profitResult.getResult();
+
         lineSeparator();
         println("## 최종 수익");
         printDealerResult(dealerName, profitResult);
-            printPlayersResult(profitResult.getResult());
+        printPlayersResult(profitResult.getResult());
     }
 
     private void printDealerResult(final String dealerName, final ProfitResult profitResult) {

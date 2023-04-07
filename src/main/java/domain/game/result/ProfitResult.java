@@ -42,7 +42,7 @@ public final class ProfitResult {
     }
 
     public Map<GameResult, List<Player>> getResult() {
-        return playerResult;
+        return new EnumMap<>(playerResult);
     }
 
     public int getDealerProfit() {

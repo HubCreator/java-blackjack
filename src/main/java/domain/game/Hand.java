@@ -43,8 +43,7 @@ public final class Hand {
     public Hand take(final Card card) {
         final List<Card> newCards = new ArrayList<>(cards);
         newCards.add(card);
-        Score result = score.plus(card.getNumberValue());
-        return checkBust(newCards, result);
+        return checkBust(newCards, Score.from(newCards));
     }
 
     private Hand checkBust(final List<Card> newCards, final Score result) {
